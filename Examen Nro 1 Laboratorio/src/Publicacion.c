@@ -45,8 +45,8 @@ int publicacion_initArray(Publicacion list[], int len)
 
 //
 /*
- * list | se le pasa la lista de tipo Employee
- * len | se le pasa la longitud de la lista
+ * list | se le pasa la lista de tipo Publicacion
+ * len  | se le pasa la longitud de la lista
  *
  * Se encarga de imprimir lo que este dento de la lista
  *
@@ -89,7 +89,14 @@ int publicacion_printArray(Publicacion* list, int length)
 	}
 	return retorno;
 }
-
+/*
+ * list     | se le pasa la lista de tipo Publicacion
+ * limit     | se le pasa la longitud de la lista
+ * index    | se le pasa el indice de la lista
+ *
+ * Se encarga de calcular quien es el cliente con mas avisos
+ *
+ * */
 int publicacion_isEmpty(Publicacion* list, int limit, int index)
 {
   int retorno = FALSE;
@@ -103,6 +110,11 @@ int publicacion_isEmpty(Publicacion* list, int limit, int index)
   return retorno;
 }
 
+
+/**
+ *se encarga de generar los titulos de todas las columnas a mostrar por printf
+ *
+ */
 void publicacion_headerArray(void)
 {
     printf("\n %*s %*s %*s %*s %*s \n",
@@ -113,6 +125,12 @@ void publicacion_headerArray(void)
 	   -14," TEXTO EN AVISO"
 	   "\n-----------------------------------------------------\n");
 }
+
+
+/**
+ *se encarga de generar los titulos de todas las columnas a mostrar por printf
+ *
+ */
 void publicacion_headerArray2(void)
 {
     printf("\n %*s %*s %*s \n",
@@ -189,10 +207,11 @@ int idIncrementalPublicacion(void)
 
 
 /*
- * list     | se le pasa la lista de tipo Employee
+ * list     | se le pasa la lista de tipo Publicacion
+ * listC    | se lep asa la lista de tipo Cliente
  * len      | se le pasa la longitud de la lista
  *
- * Se encarga de dar de alta un empleado
+ * Se encarga de dar de alta una publicacion
  *
  * */
 
@@ -287,11 +306,11 @@ int publicacion_chargeArray (Publicacion list[],Cliente listC[], int len)
 
 
 /*
- * list     | se le pasa la lista de tipo Employee
+ * list     | se le pasa la lista de tipo Publciacion
  * len      | se le pasa la longitud de la lista
- * id       | se le pasa el id del empleado
+ * id       | se le pasa el id d la publicacion
  *
- * se encarga de encontrar a un empleado a travez del id
+ * se encarga de encontrar una publicacion a travez del id
  *
  * */
 int publicacion_findById(Publicacion *list, int len, int id)
@@ -314,11 +333,11 @@ int publicacion_findById(Publicacion *list, int len, int id)
 return retorno;
 }
 /*
- * list     | se le pasa la lista de tipo Employee
+ * list     | se le pasa la lista de tipo Publicacion
  * len      | se le pasa la longitud de la lista
- * id       | se le pasa el id del empleado
+ * id       | se le pasa el id del publicacion
  *
- * Se encarga de imprimir toda la informacion de un empleado a travez del id
+ * Se encarga de imprimir toda la informacion de una ublicacion a travez del id
  *
  * */
 int publicacion_printForId(Publicacion *list, int len, int id)
@@ -358,6 +377,15 @@ int publicacion_printForId(Publicacion *list, int len, int id)
  return retorno;
 }
 
+
+/*
+ * list     | se le pasa la lista de tipo Publicacion
+ * len     | se le pasa la longitud de la lista
+ * id    | se le pasa el id de la publicacion
+ *
+ * Se encarga de mostrar por printf todas las publicaciones pero sin header
+ *
+ * */
 int publicacion_printForIdSinHeader(Publicacion *list, int len, int id)
 {
   int retorno = -1;
@@ -437,10 +465,10 @@ int publicacion_bufferToArray(Publicacion *list, Publicacion *listBuffer, int le
 
 
 /*
- * list     | se le pasa la lista de tipo Employee
+ * list     | se le pasa la lista de tipo Publicacion
  * len      | se le pasa la longitud de la lista
  *
- * se encarga de modificar el valor de la informacion de un empleado en base a su id
+ * se encarga de modificar el valor de la informacion de la publicacion en base a su id
  *
  * */
 int publicacion_updateArray (Publicacion *list, int len)
@@ -525,11 +553,11 @@ int publicacion_updateArray (Publicacion *list, int len)
 }
 
 /*
- * list     | se le pasa la lista de tipo Employee
+ * list     | se le pasa la lista de tipo Publicacion
  * len      | se le pasa la longitud de la lista
- * id       | se le pasa el id del empleado
+ * id       | se le pasa el id del publicacion
  *
- * Se encarga de eliminar un empleado a la lista Employee
+ * Se encarga de eliminar una publicacion a la lista Publicacion
  *
  * */
 int publicacion_removeArray(Publicacion* list, int len, int id)
@@ -579,10 +607,10 @@ int publicacion_prepareForDelete(Publicacion *list, int len)
 
 
 /*
- * list     | se le pasa la lista de tipo Employee
+ * list     | se le pasa la lista de tipo Publicacion
  * len      | se le pasa la longitud de la lista
  * order    | se le pasa el valor para ordenar menor a 0 o mayor a 0 (-1 o 1)
- * Se encarga de agregar un empleado a la lista Employee
+ * Se encarga de agregar una publicacion a la lista Publicacion
  *
  * */
 int publicacion_sortArray(Publicacion* list, int len, int order)

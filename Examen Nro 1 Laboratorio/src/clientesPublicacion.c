@@ -5,6 +5,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+
+/*
+ * listP     | se le pasa la lista de tipo Publicacion
+ * listC     | se le pasa la lista de tipo Cliente
+ *
+ * Se encarga de calcular la cantidad de publicaciones activas por cliente
+ *
+ * */
 int sumarActivosPublicacionesClientes(Publicacion* listP,Cliente* listC){
 
    int auxPubliActivas;
@@ -26,7 +34,14 @@ int sumarActivosPublicacionesClientes(Publicacion* listP,Cliente* listC){
     return 0;
 
 }
-
+/*
+ * listP     | se le pasa la lista de tipo Publicacion
+ * listC     | se le pasa la lista de tipo Cliente
+ * length    | se pasa la longitud de la lista
+ *
+ * Se encarga de calcular quien es el cliente con mas avisos
+ *
+ * */
 int cliente_printArrayConPublicacion(Cliente* listC,Publicacion* listP, int length)
 {
 	int retorno = -1;
@@ -51,7 +66,14 @@ int cliente_printArrayConPublicacion(Cliente* listC,Publicacion* listP, int leng
 	return retorno;
 }
 
-
+/*
+ * listP     | se le pasa la lista de tipo Publicacion
+ * listC     | se le pasa la lista de tipo Cliente
+ * salida    | se utiliza una variable puntero para devolver el "resultado"
+ *
+ * Se encarga de calcular quien es el cliente con mas avisos
+ *
+ * */
 int CalcularAvisosClientes(Publicacion* listP,Cliente* listC,int *salida){
 
 	  int flagAvisos = 0;
@@ -81,6 +103,16 @@ int CalcularAvisosClientes(Publicacion* listP,Cliente* listC,int *salida){
 
 }
 
+/*
+ * listP     | se le pasa la lista de tipo Publicacion
+ * lenP      | se le pasa la longitud de respectiva lista
+ * listC     | se le pasa la lista de tipo Cliente
+ * lenC      | se le pasa la longitud de respectiva lista
+ * id        | se le pasa el id de cliente
+ *
+ * Se encarga de mostrar todas las publicaciones asociadas con un cliente
+ *
+ * */
 void publicacionesPorCLiente(Publicacion * listP, int lenP,Cliente * listC, int lenC, int id)
 {
     int i;
@@ -101,7 +133,16 @@ void publicacionesPorCLiente(Publicacion * listP, int lenP,Cliente * listC, int 
     }
 }
 
-
+/*
+ * listP     | se le pasa la lista de tipo Publicacion
+ * lenP      | se le pasa la longitud de respectiva lista
+ * listC     | se le pasa la lista de tipo Cliente
+ * lenC      | se le pasa la longitud de respectiva lista
+ * id        | se le pasa el id de cliente
+ *
+ * Se encarga de borrar las publicaciones asociadas a un cliente
+ *
+ * */
 void publicacionesPorCLienteABorrar(Publicacion * listP, int lenP,Cliente * listC, int lenC, int id)
 {
     int i;
@@ -123,11 +164,17 @@ void publicacionesPorCLienteABorrar(Publicacion * listP, int lenP,Cliente * list
 }
 
 
-
+/*
+ * listP     | se le pasa la lista de tipo Publicacion
+ * salida    | se utiliza una variable puntero para devolver el "resultado"
+ *
+ * Se encarga de calcular el rubro con mas avisos
+ *
+ * */
 int CalcularRubrosPublicaciones(Publicacion* listP,int *salida){
 
 	int retorno = -1;
-	int contador = 0;
+	int contador;
 	int rubroMax = 0;
 	int rubroAMostrar=0;
 		for (int i = 0 ; i<QTY_PUBLICACION; i++)
@@ -152,7 +199,15 @@ int CalcularRubrosPublicaciones(Publicacion* listP,int *salida){
 
 	return retorno;
 }
-
+/*
+ * listP     | se le pasa la lista de tipo Publicacion
+ * lenP      | se le pasa la longitud de respectiva lista
+ * listC     | se le pasa la lista de tipo Cliente
+ * lenC      | se le pasa la longitud de respectiva lista
+ *
+ * Se encarga de borrar en "casacada" lo que seria un cliente y con el sus publicaciones
+ *
+ * */
 int borradoCLientePublicacion(Publicacion * listP, int lenP,Cliente * listC, int lenC)
 {
     int retorno = -1;
@@ -198,7 +253,14 @@ int borradoCLientePublicacion(Publicacion * listP, int lenP,Cliente * listC, int
 
 
 
-
+/*
+ * listP         | se le pasa la lista de tipo Publicacion
+ * listC         | se le pasa la lista de tipo Cliente
+ * idPublicacion | se le pasa el id de la publicacion a pausar
+ *
+ * Se encarga de pausar una publicacion en base a su id
+ *
+ * */
 int PausarClientePublicacion(Publicacion* listP,Cliente* listC,int idPublicacion){
 
 	for(int i = 0; i<QTY_CLIENTES;i++){
@@ -227,7 +289,14 @@ int PausarClientePublicacion(Publicacion* listP,Cliente* listC,int idPublicacion
 
 	return 0;
 }
-
+/*
+ * listP         | se le pasa la lista de tipo Publicacion
+ * listC         | se le pasa la lista de tipo Cliente
+ * idPublicacion | se le pasa el id de la publicacion a pausar
+ *
+ * Se encarga de reanudar una publicacion en base a su id
+ *
+ * */
 int ReanudarClientePublicacion(Publicacion* listP,Cliente* listC,int idPublicacion){
 
 	for(int i = 0; i<QTY_CLIENTES;i++){
@@ -236,7 +305,7 @@ int ReanudarClientePublicacion(Publicacion* listP,Cliente* listC,int idPublicaci
 
 			if(listP[i].idCliente == listC[i].id){
 
-				CalcularAvisosClientes(listP, listC, listC[i].publicacionesActivas);
+				//CalcularAvisosClientes(listP, listC, listC[i].publicacionesActivas);
 				cliente_printForId(listC, QTY_CLIENTES, listC[i].id);
 				switch (utn_getAceptaRechaza ("\nDesea reanudar la publicacion? s/n: ", "ERROR al ingresar opcion. \n", 's', 'n')){
 
@@ -247,7 +316,7 @@ int ReanudarClientePublicacion(Publicacion* listP,Cliente* listC,int idPublicaci
 					case 1:
 
 						listP[i].valorEstadoPublicacion = 1;
-						CalcularAvisosClientes(listP, listC, listC[i].publicacionesActivas);
+					//	CalcularAvisosClientes(listP, listC, listC[i].publicacionesActivas);
 						publicacion_printForId(listP, QTY_PUBLICACION, idPublicacion);
 						break;
 				}
@@ -260,7 +329,13 @@ int ReanudarClientePublicacion(Publicacion* listP,Cliente* listC,int idPublicaci
 
 
 
-
+/*
+ * listP     | se le pasa la lista de tipo Publicacion
+ * salida    | se utiliza una variable puntero para devolver el "resultado"
+ *
+ * Se encarga de sumar la cantidad de publicaciones pausadas
+ *
+ * */
 int sumarPausadosPublicacionesClientes(Publicacion* listP,int *salida){
 	int contador = 0;
     for(int j = 0 ; j < QTY_PUBLICACION;j++){

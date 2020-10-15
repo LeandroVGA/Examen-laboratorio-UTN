@@ -29,11 +29,11 @@ int cantidadAvisosPausados = 0;
 
 Cliente List[QTY_CLIENTES];
 cliente_initArray(List, QTY_CLIENTES);
-//cliente_HardcodDatosArray(List, QTY_CLIENTES);
+cliente_HardcodDatosArray(List, QTY_CLIENTES);
 
 Publicacion ListP[QTY_PUBLICACION];
 publicacion_initArray(ListP, QTY_PUBLICACION);
-//publicacion_hardcodDatosArray(ListP, QTY_PUBLICACION);
+publicacion_hardcodDatosArray(ListP, QTY_PUBLICACION);
 do{
 
 	 printf ("\n---------------"
