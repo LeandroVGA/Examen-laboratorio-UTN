@@ -38,13 +38,14 @@ int cliente_sortArray(Cliente* list, int len, int order);////********MODIFICABLE
 void cliente_headerArray(void);
 void cliente_headerArray2(void);
 void subMenu_headerArray(void);
-int cliente_printForId  (Cliente *list, int len, int id);////********MODIFICABLE INTERNAMENTE EN LA FUNCION********////
+int cliente_printForId(Cliente *list, int len, int id);////********MODIFICABLE INTERNAMENTE EN LA FUNCION********////
 int cliente_chargeArray (Cliente* list, int len);////********MODIFICABLE INTERNAMENTE EN LA FUNCION********////
 int cliente_updateArray (Cliente* list, int len);////********MODIFICABLE INTERNAMENTE EN LA FUNCION********////
 float cliente_sumaTotal(Cliente* list, int len);////********MODIFICABLE INTERNAMENTE EN LA FUNCION********////
 float cliente_promedio(Cliente* list, int len);////********MODIFICABLE INTERNAMENTE EN LA FUNCION********////
 int cliente_cantidadSuperiorAlPromedio(Cliente* list, int len);////********MODIFICABLE INTERNAMENTE EN LA FUNCION********////
 int cliente_isEmptyForid(Cliente* list, int limit, int id);
+int cliente_printForId2(Cliente *list, int len, int id);
 
 
 

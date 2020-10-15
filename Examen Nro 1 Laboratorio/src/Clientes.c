@@ -342,6 +342,30 @@ int cliente_printForId(Cliente *list, int len, int id)
  return retorno;
 }
 
+int cliente_printForId2(Cliente *list, int len, int id)
+{
+  int retorno = -1;
+  int i;
+  	if(list != NULL && len > 0)
+  	{
+  		cliente_headerArray2();
+  		for( i=0;i<len;i++)
+  		{
+  			if(list[i].id == id && list[i].isEmpty == FALSE && list[i].cuit > 0)
+  			{
+  				printf(" %-6d %-12s %-13s %-13s \n"
+  				  //  ,list[i].isEmpty
+  				    ,list[i].id
+  				    ,list[i].nombre
+  				    ,list[i].apellido
+  				    ,list[i].cuit);
+  			}
+  		}
+  		retorno = 0;
+  	}
+ return retorno;
+}
+
 
 
 

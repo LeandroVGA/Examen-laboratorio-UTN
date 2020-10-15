@@ -20,10 +20,10 @@ void publicacion_hardcodDatosArray(Publicacion* list, int len)
     int i;
     int idPublicacion[QTY_PUBLICACION] = {1,2,3,4,5};/////////NO TOCAR////////
     int isEmpty[QTY_PUBLICACION]= {FALSE,FALSE,FALSE,FALSE,FALSE};/////////NO TOCAR////////
-    int idCliente[QTY_PUBLICACION] = {1,2,1,2,1};/////////NO TOCAR////////
+    int idCliente[QTY_PUBLICACION] = {1,1,2,3,3};/////////NO TOCAR////////
     char texto[QTY_PUBLICACION][LONG_NAME_PUBLICACION]= {"Neumatico para coches","Venta de Barbijos","Sepelios","Venta de sarlanga","Mecanico MARCELO"};
     int numeroRubro[QTY_PUBLICACION] = {9,8,15,8,5};
-    int estadoPublicacion[QTY_PUBLICACION] = {ACTIVO,ACTIVO,ACTIVO,ACTIVO,ACTIVO};
+    int estadoPublicacion[QTY_PUBLICACION] = {ACTIVO,ACTIVO,ACTIVO,PAUSADO,PAUSADO};
     char descripcionestadoPublicacion[QTY_PUBLICACION][10] = {"ACTIVA","ACTIVA","ACTIVA","ACTIVA","ACTIVA"};
 
 

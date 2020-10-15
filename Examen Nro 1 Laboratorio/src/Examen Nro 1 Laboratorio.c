@@ -26,6 +26,9 @@ int idPublicacion;
 int mayorAvisos = 0;
 int mayorRubros = 0;
 int cantidadAvisosPausados = 0;
+int idMayorActivos = 0;
+int idMayorPausados = 0;
+int opcion4 = 0;
 
 Cliente List[QTY_CLIENTES];
 cliente_initArray(List, QTY_CLIENTES);
@@ -190,7 +193,8 @@ do{
 						  "5-Pausar publicacion\n"
 						  "6-Reanudar publicacion\n"
 						  "7-Imprimir Clientes\n"
-						  "8-Salir\n\n");
+						  "8-Informar\n"
+						  "9-Salir\n\n");
 
 
 					  if (utn_getNumero ("\nPor favor ingrese una opcion: ","\nOpcion Invalida. ", &opcion, 1, 8, 3) != -1)
@@ -376,7 +380,53 @@ do{
 
 							break;
 
+
 						case 8:
+							do{
+
+								printf ("\n---------------"
+								  "\n* MENU  *"
+								  "\n*********"
+								  "\n1-Cliente con más avisos activos\n"
+								  "2- Cliente con más avisos pausados\n"
+								  "3-Salir\n\n");
+
+								if(utn_getNumero ("\nPor favor ingrese una opcion: ","\nOpcion Invalida. ", &opcion3, 1, 4, 3) != -1){
+
+
+									switch(opcion3){
+
+
+										case 1:
+
+											ClienteConMasAvisosActivos(ListP, List, &idMayorActivos);
+
+											printf("%s %d","El cliente con mayor cantidad de avisos activos es ",idMayorActivos);
+
+											cliente_printForId2(List, QTY_CLIENTES, idMayorActivos);
+											break;
+
+										case 2:
+
+											ClienteConMasAvisosPausados(ListP,List,&idMayorPausados);
+
+											printf("\n %s %d","El cliente con mayor cantidad de avisos Pausados es ",idMayorPausados);
+
+											cliente_printForId2(List, QTY_CLIENTES, idMayorPausados);
+
+											break;
+
+
+
+
+									}
+								}
+							}
+							 while (opcion4 != 2);
+
+							break;
+
+						case 9:
 						  printf("\nEL PROGRAMA SE CERRO CON EXITO!\n");
 
 						  break;

@@ -11,3 +11,5 @@ void publicacionesPorCLienteABorrar(Publicacion * listP, int lenP,Cliente * list
 void publicacionesPorCLiente(Publicacion * listP, int lenP,Cliente * listC, int lenC, int id);
 int borradoCLientePublicacion(Publicacion * listP, int lenP,Cliente * listC, int lenC);
 int cliente_printArrayConPublicacion(Cliente* listC,Publicacion* listP, int length);
+int ClienteConMasAvisosActivos(Publicacion* listP,Cliente* listC,int *salida);
+int ClienteConMasAvisosPausados(Publicacion* listP,Cliente* listC,int *salida);

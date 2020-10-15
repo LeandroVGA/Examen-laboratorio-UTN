@@ -13,6 +13,78 @@
  * Se encarga de calcular la cantidad de publicaciones activas por cliente
  *
  * */
+
+
+int ClienteConMasAvisosActivos(Publicacion* listP,Cliente* listC,int *salida){
+
+	int max;
+	int flag = 0;
+
+	  int auxPubliActivas;
+	   for(int i = 0;i<QTY_CLIENTES;i++){
+	   auxPubliActivas =0;
+	            for(int j = 0 ; j<QTY_PUBLICACION;j++){
+
+	                     if(listP[j].idCliente == listC[i].id){
+	                         if(listP[j].valorEstadoPublicacion == 1 && listP[j].isEmpty == FALSE){
+	                                auxPubliActivas++;
+	                          }
+	                     }
+	            }
+	            listC[i].publicacionesActivas =auxPubliActivas;
+
+	            if(flag == 0){
+
+	            	if(listC[i].publicacionesActivas > max){
+
+	            		max = listC[i].publicacionesActivas;
+	            		*salida = listC[i].id;
+
+	            	}
+	          }else{
+
+	        	  max = listC[i].publicacionesActivas;
+	        	  *salida = listC[i].id;
+
+	          }
+	   }
+}
+
+int ClienteConMasAvisosPausados(Publicacion* listP,Cliente* listC,int *salida){
+
+	int max;
+	int flag = 0;
+
+	  int auxPubliPausadas;
+	   for(int i = 0;i<QTY_CLIENTES;i++){
+	   auxPubliPausadas =0;
+	            for(int j = 0 ; j<QTY_PUBLICACION;j++){
+
+	                     if(listP[j].idCliente == listC[i].id){
+	                         if(listP[j].valorEstadoPublicacion == 0 && listP[j].isEmpty == FALSE){
+	                                auxPubliPausadas++;
+	                          }
+	                     }
+	            }
+	            listC[i].publicacionesActivas =auxPubliPausadas;
+
+	            if(flag == 0){
+
+	            	if(listC[i].publicacionesActivas > max){
+
+	            		max = listC[i].publicacionesActivas;
+	            		*salida = listC[i].id;
+
+	            	}
+	          }else{
+
+	        	  max = listC[i].publicacionesActivas;
+	        	  *salida = listC[i].id;
+
+	          }
+	   }
+}
+
 int sumarActivosPublicacionesClientes(Publicacion* listP,Cliente* listC){
 
    int auxPubliActivas;
