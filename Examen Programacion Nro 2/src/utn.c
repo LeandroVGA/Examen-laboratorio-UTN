@@ -77,12 +77,56 @@ static int getInt(int* pResultado)
     return retorno;
 }
 
+
+
 /**
  * \brief Verifica si la cadena ingresada es numerica
  * \param cadena Cadena de caracteres a ser analizada
  * \return Retorna 1 (verdadero) si la cadena es numerica, 0 (falso) si no lo es y -1 en caso de error
  *
  */
+
+static long esNumericaLong(char* cadena, long long limite)
+{
+	int retorno = -1; // ERROR
+	int i;
+	if(cadena != NULL && limite > 0)
+	{
+		retorno = 1; // VERDADERO
+		for(i=0;i<limite && cadena[i] != '\0';i++)
+		{
+			if(i==0 && (cadena[i] == '+' || cadena[i] == '-'))
+			{
+				continue;
+			}
+			if(cadena[i] < '0'||cadena[i] > '9')
+			{
+				retorno = 0;
+				break;
+			}
+			//CONTINUE
+		}
+		//BREAK
+	}
+	return retorno;
+}
+
+static int getLong(long long* pResultado)
+{
+    int retorno=-1;
+    char bufferString[50];
+    if(	pResultado != NULL &&
+    	getString(bufferString,sizeof(bufferString)) == 0 &&
+    	esNumericaLong(bufferString,sizeof(bufferString)))
+	{
+		retorno=0;
+		*pResultado = atoi(bufferString) ;
+
+	}
+    return retorno;
+}
+
+
 static int esNumerica(char* cadena, int limite)
 {
 	int retorno = -1; // ERROR
@@ -131,6 +175,29 @@ int utn_getNumero(int* pResultado, char* mensaje, char* mensajeError, int minimo
 		{
 			retorno = 0;
 			*pResultado = bufferInt;
+			break;
+		}
+		printf("%s",mensajeError);
+		reintentos--;
+	}while(reintentos>=0);
+
+	return retorno;
+}
+
+
+int utn_getNumeroLong(long long* pResultado, char* mensaje, char* mensajeError, long minimo, long long maximo, int reintentos)
+{
+	int retorno = -1;
+	long long bufferLong;
+	do
+	{
+		printf("%s",mensaje);
+		if(	getLong(&bufferLong) == 0 &&
+			bufferLong >= minimo &&
+			bufferLong <= maximo)
+		{
+			retorno = 0;
+			*pResultado = bufferLong;
 			break;
 		}
 		printf("%s",mensajeError);

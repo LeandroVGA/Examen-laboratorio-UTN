@@ -2,7 +2,7 @@
  * utn.h
  *
  *  Created on: 14 nov. 2020
- *      Author: nico
+ *      Author: leandro
  */
 
 #ifndef UTN_H_
@@ -12,6 +12,7 @@
 
 int utn_getNumero(int* pResultado, char* mensaje, char* mensajeError, int minimo, int maximo, int reintentos);
 int utn_getNumeroFlotante(float* pResultado, char* mensaje, char* mensajeError, float minimo, float maximo, int reintentos);
+int utn_getNumeroLong(long* pResultado, char* mensaje, char* mensajeError, long minimo, long maximo, int reintentos);
 int utn_getNombre(char* pResultado, int longitud,char* mensaje, char* mensajeError, int reintentos);
 int utn_getDescripcion(char* pResultado, int longitud,char* mensaje, char* mensajeError, int reintentos);
 int utn_getDni(char* pResultado, int longitud,char* mensaje, char* mensajeError, int reintentos);

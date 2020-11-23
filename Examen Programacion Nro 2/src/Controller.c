@@ -90,7 +90,7 @@ int controller_addCliente(LinkedList* pArrayListCliente)
 	{
 		if(!(utn_getNombre(auxNombre, LEN_AUX,"Ingrese nombre\n", "Valor incorrecto\n",2)) &&
 		   !(utn_getNombre(auxApellido, LEN_AUX,"Ingrese apellido\n", "Valor incorrecto\n",2)) &&
-		   !(utn_getNumero(&cuitAux,"Ingrese cuit\n", "Valor incorrecto\n",1, 1000,2)))
+		   !(utn_getNumeroLong(&cuitAux,"Ingrese cuit\n", "Valor incorrecto\n",1, 99999999999,2)))
 		{
 			if(ll_len(pArrayListCliente) == 0)
 			{
