@@ -79,7 +79,7 @@ Afiche* afiche_newParametros(int id,int idCliente,char* nombreArchivo,
 {
 	Afiche* this = NULL;
 	this = afiche_new();
-	if(this != NULL && idCliente > 0 && nombreArchivo != NULL && cantidadAfiches > 0 && zona != NULL && estado != NULL && estadoNum > 0)
+	if(this != NULL && nombreArchivo != NULL  && zona != NULL && estado != NULL )
 	{
 		if(	afiche_setIdCliente(this, idCliente) == -1 ||
 			afiche_setId(this,id) == -1 ||
@@ -87,7 +87,7 @@ Afiche* afiche_newParametros(int id,int idCliente,char* nombreArchivo,
 			afiche_setCantidadAfiches(this, cantidadAfiches) == -1 ||
 			afiche_setZona(this, zona) == -1 ||
 			afiche_setEstado(this, estado) == -1 ||
-			afiche_setEstadoNum(this, estadoNum))
+			afiche_setEstadoNum(this, estadoNum) == -1)
 
 		{
 			afiche_delete(this);
@@ -334,11 +334,8 @@ int afiche_getIdClienteTxt(Afiche* this,char* idCliente){
 	int retorno = -1;
 	if(this != NULL && idCliente != NULL)
 	{
-		if(esNumerica(idCliente,10))
-		{
-			retorno = 0;
-			this->idCliente = atoi(idCliente);
-		}
+		retorno = 0;
+		sprintf(idCliente,"%d",this->idCliente);
 	}
 	return retorno;
 
@@ -394,12 +391,10 @@ int afiche_getCantidadAfichesTxt(Afiche* this,char* cantidadAfiches){
 	int retorno = -1;
 	if(this != NULL && cantidadAfiches != NULL)
 	{
-		if(esNumerica(cantidadAfiches,10))
-		{
-			retorno = 0;
-			this->cantidadAfiches = atoi(cantidadAfiches);
-		}
+		retorno = 0;
+		sprintf(cantidadAfiches,"%d",this->cantidadAfiches);
 	}
+
 	return retorno;
 
 
@@ -532,6 +527,7 @@ static int esNumerica(char* cadena, int limite)
  * \return Retorna 0 (EXITO) y -1 (ERROR)
  *
  */
+/*
 int afiche_imprimir(Afiche* this)
 {
 	int retorno=-1;
@@ -564,7 +560,7 @@ int afiche_imprimir(Afiche* this)
 	return retorno;
 }
 
-
+*/
 
 /**
  * \brief Imprime los datos de un Empleado
@@ -697,3 +693,52 @@ int calcularElementosAfiches(void* auxElemento)
 	}
 	return retorno;
 }
+
+
+
+
+
+
+/**
+ * \brief Imprime los datos de un Empleado
+ * \param pElemento Puntero al Empleado que se busca imprimir
+ * \return Retorna 0 (EXITO) y -1 (ERROR)
+ *
+ */
+int afiche_imprimir(Afiche* this)
+{
+	int retorno=-1;
+
+	char idAux[LEN_AUX];
+	char idCliente[LEN_AUX];
+	char nombreArchivo[LEN_AUX];
+	char cantidadAfiches[LEN_AUX];
+	char zona[LEN_AUX];
+	char estado[LEN_AUX];
+
+
+
+
+	if(this != NULL)
+	{
+		retorno = 0;
+
+		afiche_getIdTxt(this, idAux);
+		afiche_getIdClienteTxt(this, idCliente);
+		afiche_getNombreArchivo(this, nombreArchivo);
+		afiche_getCantidadAfichesTxt(this, cantidadAfiches);
+		afiche_getZona(this, zona);
+		afiche_getEstado(this, estado);
+
+
+		printf("ID: %10s - Id Cliente: %10s - Nombre Afiche: %10s - Cantidad Afiche: %10s - Zona: %10s - Estado:  %10s \n",idAux
+																	   ,idCliente
+																	   ,nombreArchivo
+																	   ,cantidadAfiches
+																	   ,zona
+																	   ,estado);
+		retorno = 0;
+	}
+	return retorno;
+}
+

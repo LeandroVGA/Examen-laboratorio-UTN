@@ -1,6 +1,9 @@
 #ifndef cliente_H_INCLUDED
 #define cliente_H_INCLUDED
 
+
+#include "LinkedList.h"
+
 #define NOMBRE_LEN 128
 typedef struct
 {
@@ -42,6 +45,7 @@ int calcularElementosHsMayoresA(void* auxElemento);
 int calcularEmpleadosLiquidacion(void* auxElemento);
 int compararSueldoPorValor(void* auxElemento, int valor,int index);
 int calcularElementos(void* auxElemento);
-
+int cli_cuitIsInList(LinkedList* listClient, char* cuit);
+int cli_IdIsInList(LinkedList* listClient, int id);
 
 #endif // cliente_H_INCLUDED

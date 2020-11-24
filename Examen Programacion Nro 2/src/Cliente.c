@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "LinkedList.h"
 #include "utn.h"
 
 #define LEN_AUX 128
@@ -237,13 +238,13 @@ int cliente_setIdTxt(Cliente* this,char* idProducto)
  */
 
 
-int cliente_getId(Cliente* this,int* idProducto)
+int cliente_getId(Cliente* this,int* id)
 {
 	int retorno = -1;
-	if(this != NULL && idProducto != NULL)
+	if(this != NULL && id != NULL)
 	{
 		retorno = 0;
-		*idProducto = this->id;
+		*id = this->id;
 	}
 	return retorno;
 }
@@ -348,7 +349,8 @@ static int isValidNombre(char* cadena,int longitud)
 	{
 		for(i=0 ; cadena[i] != '\0' && i < longitud; i++)
 		{
-			if(cadena[i] != '-' && cadena[i] != ' ' &&(cadena[i] < 'A' || cadena[i] > 'Z' ) && (cadena[i] < 'a' || cadena[i] > 'z' ))
+		    if((cadena[i] < 'a' || cadena [i] > 'z') && (cadena[i] < 'A' || cadena[i] > 'Z')  && (cadena[i] < '0' || cadena[i] > '9')
+		                       && (cadena[i] != '.' || cadena[0] == '.') && (cadena[i] != '-' || cadena[0] == '-'))
 			{
 				retorno = 0;
 				break;
@@ -582,4 +584,78 @@ int calcularElementos(void* auxElemento)
 		retorno = 0;
 	}
 	return retorno;
+}
+
+
+
+
+
+
+/**
+ * \brief Verifica si existe un cuit dado en la lista de clientes
+ * \param listClient LinkedList* puntero al listado de clientes
+ * \param cuit char* cuit a buscar si ya existe
+ * \return Return (0) FALSE si no existe (1) TRUE si lo encontro
+ */
+int cli_cuitIsInList(LinkedList* listClient, char* cuit)
+{
+	int result = 0;
+	int i;
+	char bufferCuit[LEN_AUX];
+	Cliente* pClient;
+
+	if(listClient !=  NULL && cuit != NULL)
+	{
+		for (i = 0; i < ll_len(listClient); i++)
+		{
+			pClient = (Cliente*)ll_get(listClient,i);
+			if(pClient!= NULL)
+			{
+				cliente_getCuit(pClient,bufferCuit);
+				if (strncmp(bufferCuit,cuit,LEN_AUX)==0)
+				{
+					result = 1;
+					break;
+				}
+			}
+		}
+	}
+	return result;
+}
+
+
+
+
+
+/**
+ * \brief Verifica si existe un cuit dado en la lista de clientes
+ * \param listClient LinkedList* puntero al listado de clientes
+ * \param cuit char* cuit a buscar si ya existe
+ * \return Return (0) FALSE si no existe (1) TRUE si lo encontro
+ */
+int cli_IdIsInList(LinkedList* listClient, int id)
+{
+	int result = -1;
+	int i;
+	int bufferId;
+	Cliente* pClient;
+
+	if(listClient !=  NULL)
+	{
+		for (i = 0; i < ll_len(listClient); i++)
+		{
+			pClient = (Cliente*)ll_get(listClient,i);
+			if(pClient!= NULL)
+			{
+				cliente_getId(pClient,&bufferId);
+
+				if (id == bufferId)
+				{
+					result = 0;
+					break;
+				}
+			}
+		}
+	}
+	return result;
 }

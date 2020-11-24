@@ -6,6 +6,7 @@
 #include "Controller.h"
 #include <string.h>
 #include "Cliente.h"
+#include "Afiches.h"
 
 
 #define LEN_AUX 128
@@ -71,7 +72,6 @@ int controller_loadFromBinary(char* path , LinkedList* pArrayListCliente)
 
 	return retorno;
 }
-
 /** \brief Alta de empleados
  * \param pArrayListEmployee LinkedList* Puntero a la lista del tipo LinkedList* donde será añadido el empleado
  * \return int Retorna 0 OK o (-1) ERROR
@@ -90,7 +90,8 @@ int controller_addCliente(LinkedList* pArrayListCliente)
 	{
 		if(!(utn_getNombre(auxNombre, LEN_AUX,"Ingrese nombre\n", "Valor incorrecto\n",2)) &&
 		   !(utn_getNombre(auxApellido, LEN_AUX,"Ingrese apellido\n", "Valor incorrecto\n",2)) &&
-		   !(utn_getCuit(cuitAux, LEN_AUX,"Ingrese cuittt\n", "Valor incorrecto\n",2)))
+		   !(utn_getCuit(cuitAux, LEN_AUX,"Ingrese cuittt\n", "Valor incorrecto\n",2)) &&
+		   !(cli_cuitIsInList(pArrayListCliente, cuitAux)))
 		{
 			if(ll_len(pArrayListCliente) == 0)
 			{
@@ -105,14 +106,84 @@ int controller_addCliente(LinkedList* pArrayListCliente)
 			{
 				pAuxiliarCliente = (Cliente*)cliente_newParametros(idAux,auxNombre,cuitAux,auxApellido);
 				ll_add(pArrayListCliente,pAuxiliarCliente);
-
 				retorno = 0;
 				printf("Cliente creado correctamente en la ubicación %d\n", idAux);
 			}
-		}
+		}else
+		  {
+		    printf("\nEL CUIT YA EXISTE. INTENTE NUEVAMENTE\n");
+		  }
 	}
 	return retorno;
 }
+
+
+
+
+/** \brief Alta de empleados
+ * \param pArrayListEmployee LinkedList* Puntero a la lista del tipo LinkedList* donde será añadido el empleado
+ * \return int Retorna 0 OK o (-1) ERROR
+ *
+ */
+int controller_addAfiche(LinkedList* pArrayListAfiches,LinkedList* pArrayListAClientes)
+{
+	int retorno=-1;
+	Afiche* pAuxiliarAfiche;
+	int idAux;
+	int idCliente;
+	char nombreArchivo[LEN_AUX];
+	int cantidadAfiches;
+	char zona[LEN_AUX];
+	char estado[LEN_AUX];
+	int estadoNum;
+
+
+	if(pArrayListAfiches != NULL)
+	{
+
+	    controller_ListCliente(pArrayListAClientes);
+		if(
+		    !(utn_getNumero(&idCliente, "Ingrese el id cliente\n", "Valor incorrecto\n", 0, 99999, 3))&&
+			!(cli_IdIsInList(pArrayListAClientes, idCliente)) &&
+		    !(utn_getNombre(nombreArchivo, LEN_AUX,"Ingrese nombre archivo\n", "Valor incorrecto\n",2)) &&
+			!(utn_getNumero(&cantidadAfiches, "Ingrese cantidad de afiches\n", "Valor incorrecto\n", 0, 100, 3)) &&
+		   !(utn_getNombre(zona, LEN_AUX,"Ingrese zona\n", "Valor incorrecto\n",2)))
+
+
+
+		{
+			if(ll_len(pArrayListAfiches) == 0)
+			{
+				idAux = 0;
+			}
+			else
+			{
+				idMaximoEncontrado(pArrayListAfiches, &idAux);
+				idAux = idAux + 1;
+			}
+
+
+			estadoNum = 1;
+			strncpy(estado,"A cobrar",sizeof(estado));
+			afiche_setEstado(pArrayListAfiches, estado);
+
+			if(afiche_newParametros(idAux,idCliente,nombreArchivo,cantidadAfiches,zona,estado,estadoNum) >= 0)
+			{
+			    pAuxiliarAfiche = (Afiche*)afiche_newParametros(idAux,idCliente,nombreArchivo,cantidadAfiches,zona,estado,estadoNum);
+				ll_add(pArrayListAfiches,pAuxiliarAfiche);
+				retorno = 0;
+				printf("Afiche creado correctamente en la ubicación %d\n", idAux);
+
+			}
+			afiche_imprimir(pAuxiliarAfiche);
+		}else
+		  {
+		    printf("\nNo existe cliente con ese id. INTENTE NUEVAMENTE\n");
+		  }
+	}
+	return retorno;
+}
+
 
 /** \brief Modificar datos de empleado
  * \param pArrayListEmployee LinkedList* Puntero a la lista del tipo LinkedList* donde será modificado el empleado
@@ -308,7 +379,7 @@ int controller_saveAsText(char* path , LinkedList* pArrayListCliente)
 	int auxiliarId;
 	char auxiliarNombre[NOMBRE_LEN];
 	char auxApellido[NOMBRE_LEN];
-	int auxCuit;
+	char auxCuit[NOMBRE_LEN];
 	Cliente* auxCliente;
 
 	if(pArrayListCliente != NULL && path != NULL)
@@ -325,10 +396,10 @@ int controller_saveAsText(char* path , LinkedList* pArrayListCliente)
 				{
 					if(!cliente_getId(auxCliente,&auxiliarId) &&
 					   !cliente_getNombre(auxCliente,auxiliarNombre) &&
-					   !cliente_getCuit(auxCliente,&auxCuit) &&
+					   !cliente_getCuit(auxCliente,auxCuit) &&
 					   !cliente_getApellido(auxCliente,auxApellido))
 					{
-						fprintf(fpArchivo,"%d,%s,%s,%d\n",auxiliarId,auxiliarNombre,auxApellido,auxCuit);
+						fprintf(fpArchivo,"%d,%s,%s,%s\n",auxiliarId,auxiliarNombre,auxApellido,auxCuit);
 					}
 				}
 

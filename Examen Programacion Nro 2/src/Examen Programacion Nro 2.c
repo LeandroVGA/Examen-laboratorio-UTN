@@ -1,7 +1,7 @@
 /*
  ============================================================================
  Name        : Examen.c
- Author      : 
+ Author      :
  Version     :
  Copyright   : Your copyright notice
  Description : Hello World in C, Ansi-style
@@ -15,6 +15,7 @@
 #include "Cliente.h"
 #include "LinkedList.h"
 #include "Controller.h"
+#include "Afiches.h"
 #include "utn.h"
 
 int main(void) {
@@ -23,6 +24,7 @@ int main(void) {
 	int option = 0;
 	int archivoCargado = 0;
 	Cliente* auxCliente;
+	Afiche* AuxAfiche;
 	int auxIndice;
 	int contadorAux;
 	LinkedList* sublista;
@@ -30,6 +32,7 @@ int main(void) {
 	int to;
 	int from;
 	LinkedList* listaClientes = ll_newLinkedList();
+	LinkedList* listaAfiches = ll_newLinkedList();
 
 
 
@@ -37,7 +40,7 @@ int main(void) {
 	 do{
 	        	utn_getNumero(&option,"1. Cargar los datos de los empleados desde el archivo data.csv (modo texto)\n"
 	        						  "2. Cargar los datos de los empleados desde el archivo data.csv (modo binario)\n"
-	        						  "3. Alta de empleado\n"
+	        						  "3. Alta de empleado\n" //FALTA PULIR
 	        						  "4. Modificar datos de empleado\n"
 	        						  "5. Baja de empleado\n"
 	        						  "6. Listar empleados\n"
@@ -82,7 +85,14 @@ int main(void) {
 						}
 	                    break;
 	                case 3:
-	                	controller_addCliente(listaClientes);
+	                	if(controller_addCliente(listaClientes)!=-1)
+	                	  {
+	                	    controller_saveAsText("data.dat",listaClientes);
+	                	   }
+
+
+
+
 	                    break;
 	                case 4:
 	                	controller_editCliente(listaClientes);
@@ -100,10 +110,13 @@ int main(void) {
 	                	controller_sortClientebyID(listaClientes);
 	                    break;
 	                case 9:
-	                	controller_saveAsBinary("data.dat",listaClientes);
+
+	                  controller_addAfiche(listaAfiches,listaClientes);
+
+	                	//controller_saveAsBinary("data.dat",listaClientes);
 	                    break;
 	                case 10:
-	                	controller_saveAsText("Clientes.txt",listaClientes);
+	                	controller_saveAsText("data.csv",listaClientes);
 	                	break;
 	                case 11:
 	                	utn_getNumero(&to,"Ingrese ID\n","ID incorrecto\n",0,ll_len(listaClientes),2);
