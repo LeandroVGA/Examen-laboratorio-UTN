@@ -20,29 +20,29 @@
  * \return int (-1) ERROR  0) OK
  *
  */
-int parser_ClienteFromText(FILE* pFile , LinkedList* pArrayListEmployee)
+int parser_ClienteFromText(FILE* pFile , LinkedList* pArrayListCliente)
 {
 		int retorno = -1;
 		Cliente* auxEmployee;
 		char auxiliarId[4096];
 		char auxiliarNombre[4096];
-		char auxiliarHsTrabajadas[4096];
-		char auxiliarSueldo[4096];
-		int contadorEmployee=0;
+		char auxiliarApellido[4096];
+		char auxiliarCuit[4096];
+		int contadorEClientes=0;
 
-		if(pFile != NULL && pArrayListEmployee != NULL)
+		if(pFile != NULL && pArrayListCliente != NULL)
 		{
 				do
 				{
-					if(fscanf(pFile,"%[^,],%[^,],%[^,],%[^\n]\n",auxiliarId,auxiliarNombre,auxiliarHsTrabajadas,auxiliarSueldo)== 4)
+					if(fscanf(pFile,"%[^,],%[^,],%[^,],%[^\n]\n",auxiliarId,auxiliarNombre,auxiliarApellido,auxiliarCuit)== 4)
 					{
-						if(cliente_newParametrosTxt(auxiliarId,auxiliarNombre,auxiliarHsTrabajadas,auxiliarSueldo) >= 0)
+						if(cliente_newParametrosTxt(auxiliarId,auxiliarNombre,auxiliarApellido,auxiliarCuit) >= 0)
 						{
-							auxEmployee = (Cliente*) cliente_newParametrosTxt(auxiliarId,auxiliarNombre,auxiliarHsTrabajadas,auxiliarSueldo);
-							if(ll_add(pArrayListEmployee,auxEmployee)==0)
+							auxEmployee = (Cliente*) cliente_newParametrosTxt(auxiliarId,auxiliarNombre,auxiliarApellido,auxiliarCuit);
+							if(ll_add(pArrayListCliente,auxEmployee)==0)
 							{
 							retorno = 0;
-							contadorEmployee++;
+							contadorEClientes++;
 
 							}
 
@@ -50,7 +50,7 @@ int parser_ClienteFromText(FILE* pFile , LinkedList* pArrayListEmployee)
 					}
 				}while(!feof(pFile));
 		}
-		printf("Se cargaron %d empleados\n",contadorEmployee);
+		printf("Se cargaron %d empleados\n",contadorEClientes);
 		return retorno;
 }
 

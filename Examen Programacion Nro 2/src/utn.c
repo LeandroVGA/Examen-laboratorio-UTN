@@ -19,6 +19,7 @@ static int getFloat(float* pResultado);
 static int getString(char* cadena, int longitud);
 static int esNombre(char* cadena,int longitud);
 static int getNombre(char* pResultado,int longitud);
+static int getCuit(char* pResultado, int longitud);
 static int esDescripcion(char* cadena,int longitud);
 static int getDescripcion(char* pResultado, int longitud);
 
@@ -325,6 +326,24 @@ static int getNombre(char* pResultado, int longitud)
     return retorno;
 }
 
+
+static int getCuit(char* pResultado, int longitud)
+{
+    int retorno=-1;
+    char buffer[4096];
+
+    if(pResultado != NULL)
+    {
+    	if(	getString(buffer,sizeof(buffer))==0 &&
+			strnlen(buffer,sizeof(buffer))<longitud)
+    	{
+    		strncpy(pResultado,buffer,longitud);
+			retorno = 0;
+		}
+    }
+    return retorno;
+}
+
 /**
  * \brief Verifica si la cadena ingresada es un nombre valido
  * \param cadena Cadena de caracteres a ser analizada
@@ -369,6 +388,25 @@ int utn_getNombre(char* pResultado, int longitud,char* mensaje, char* mensajeErr
 		reintentos--;
 		printf("%s",mensaje);
 		if(getNombre(bufferString,sizeof(bufferString)) == 0 && strnlen(bufferString,sizeof(bufferString)) < longitud )
+		{
+			strncpy(pResultado,bufferString,longitud);
+			retorno = 0;
+			break;
+		}
+		printf("%s",mensajeError);
+	}
+	return retorno;
+}
+
+int utn_getCuit(char* pResultado, int longitud,char* mensaje, char* mensajeError, int reintentos)
+{
+	char bufferString[4096];
+	int retorno = -1;
+	while(reintentos>=0)
+	{
+		reintentos--;
+		printf("%s",mensaje);
+		if(getCuit(bufferString,sizeof(bufferString)) == 0 && strnlen(bufferString,sizeof(bufferString)) < longitud )
 		{
 			strncpy(pResultado,bufferString,longitud);
 			retorno = 0;

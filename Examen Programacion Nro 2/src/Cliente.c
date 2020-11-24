@@ -42,7 +42,7 @@ Cliente* cliente_new(void)
  *
  */
 
-Cliente* cliente_newParametrosTxt(char* idStr,char* nombreStr,char* cuitStr, char* apellidoStr)
+Cliente* cliente_newParametrosTxt(char* idStr,char* nombreStr,char* apellidoStr, char* cuitStr)
 {
 	Cliente* this = NULL;
 	this = cliente_new();

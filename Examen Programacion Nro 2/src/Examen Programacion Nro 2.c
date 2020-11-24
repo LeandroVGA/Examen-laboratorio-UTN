@@ -60,7 +60,7 @@ int main(void) {
 	                case 1:
 	                	if(archivoCargado == 0)
 	                	{
-							if(!controller_loadFromText("data.csv",listaClientes))
+							if(!controller_loadFromText("Clientes.txt",listaClientes))
 							{
 								archivoCargado = 1;
 							}
@@ -103,7 +103,7 @@ int main(void) {
 	                	controller_saveAsBinary("data.dat",listaClientes);
 	                    break;
 	                case 10:
-	                	controller_saveAsText("data.csv",listaClientes);
+	                	controller_saveAsText("Clientes.txt",listaClientes);
 	                	break;
 	                case 11:
 	                	utn_getNumero(&to,"Ingrese ID\n","ID incorrecto\n",0,ll_len(listaClientes),2);
