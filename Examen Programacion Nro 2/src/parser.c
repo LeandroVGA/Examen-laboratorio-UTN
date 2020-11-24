@@ -28,17 +28,20 @@ int parser_ClienteFromText(FILE* pFile , LinkedList* pArrayListCliente)
 		char auxiliarNombre[4096];
 		char auxiliarApellido[4096];
 		char auxiliarCuit[4096];
+		char auxiliarCantidad[4096];
 		int contadorEClientes=0;
 
 		if(pFile != NULL && pArrayListCliente != NULL)
 		{
+			printf("\n ENTRE AL FSCAN \n");
 				do
 				{
-					if(fscanf(pFile,"%[^,],%[^,],%[^,],%[^\n]\n",auxiliarId,auxiliarNombre,auxiliarApellido,auxiliarCuit)== 4)
+						printf("\n ENTRE AL FSCAN \n");
+					if(fscanf(pFile,"%[^,],%[^,],%[^,],%[^,],%[^\n]\n",auxiliarId,auxiliarNombre,auxiliarApellido,auxiliarCuit,auxiliarCantidad)== 4)
 					{
-						if(cliente_newParametrosTxt(auxiliarId,auxiliarNombre,auxiliarApellido,auxiliarCuit) >= 0)
+						if(cliente_newParametrosTxt(auxiliarId,auxiliarNombre,auxiliarApellido,auxiliarCuit,auxiliarCantidad) >= 0)
 						{
-							auxEmployee = (Cliente*) cliente_newParametrosTxt(auxiliarId,auxiliarNombre,auxiliarApellido,auxiliarCuit);
+							auxEmployee = (Cliente*) cliente_newParametrosTxt(auxiliarId,auxiliarNombre,auxiliarApellido,auxiliarCuit,auxiliarCantidad);
 							if(ll_add(pArrayListCliente,auxEmployee)==0)
 							{
 							retorno = 0;
@@ -61,7 +64,7 @@ int parser_ClienteFromText(FILE* pFile , LinkedList* pArrayListCliente)
  * \return int (-1) ERROR  0) OK
  *
  */
-int parser_ClienteFromBinary(FILE* pFile , LinkedList* pArrayListCliente)
+/*int parser_ClienteFromBinary(FILE* pFile , LinkedList* pArrayListCliente)
 {
 	int retorno = -1;
 		Cliente* auxPCliente;
@@ -102,4 +105,4 @@ int parser_ClienteFromBinary(FILE* pFile , LinkedList* pArrayListCliente)
 		}
 		printf("Se cargaron %d clientes\n",contadorClientes);
 		return retorno;
-}
+}*/

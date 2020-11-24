@@ -8,7 +8,7 @@
 #ifndef PARSER_H_
 #define PARSER_H_
 int parser_ClienteFromText(FILE* pFile , LinkedList* pArrayListCliente);
-int parser_ClienteFromBinary(FILE* pFile , LinkedList* pArrayListCliente);
+//int parser_ClienteFromBinary(FILE* pFile , LinkedList* pArrayListCliente);
 
 
 #endif /* PARSER_H_ */

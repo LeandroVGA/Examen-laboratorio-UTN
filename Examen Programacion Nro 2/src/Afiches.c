@@ -356,6 +356,8 @@ int afiche_setCantidadAfiches(Afiche* this,int cantidadAfiches){
 }
 
 
+
+
 int afiche_setCantidadAfichesTxt(Afiche* this,char* cantidadAfiches){
 
 	int retorno = -1;

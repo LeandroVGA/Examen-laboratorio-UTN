@@ -76,7 +76,7 @@ int main(void) {
 	                case 2:
 	                	if(archivoCargado == 0)
 	                	{
-							controller_loadFromBinary("data.dat",listaClientes);
+							//controller_loadFromBinary("data.dat",listaClientes);
 							archivoCargado = 1;
 	                    }
 	                	else
@@ -104,10 +104,11 @@ int main(void) {
 	                	controller_ListCliente(listaClientes);
 	                    break;
 	                case 7:
-	                	controller_sortCliente(listaClientes);
+	                	info_CantVentasXCliente(listaAfiches,listaClientes, 1);
+
 	                    break;
 	                case 8:
-	                	controller_sortClientebyID(listaClientes);
+	                	info_CantVentasXCliente(listaAfiches,listaClientes, 0);
 	                    break;
 	                case 9:
 
@@ -116,7 +117,13 @@ int main(void) {
 	                	//controller_saveAsBinary("data.dat",listaClientes);
 	                    break;
 	                case 10:
-	                	controller_saveAsText("data.csv",listaClientes);
+	                	if(archivoCargado == 0)
+							{
+								if(!controller_loadFromText("Afiches.txt",listaAfiches))
+								{
+									archivoCargado = 1;
+								}
+							}
 	                	break;
 	                case 11:
 	                	utn_getNumero(&to,"Ingrese ID\n","ID incorrecto\n",0,ll_len(listaClientes),2);

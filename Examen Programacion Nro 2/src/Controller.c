@@ -51,7 +51,7 @@ int controller_loadFromText(char* path , LinkedList* pArrayListCliente)
  * \return int 0 si salió OK o (-1) ERROR
  *
  */
-int controller_loadFromBinary(char* path , LinkedList* pArrayListCliente)
+/*int controller_loadFromBinary(char* path , LinkedList* pArrayListCliente)
 {
 	int retorno = -1;
 	FILE *pArch;
@@ -71,7 +71,7 @@ int controller_loadFromBinary(char* path , LinkedList* pArrayListCliente)
 	}
 
 	return retorno;
-}
+}*/
 /** \brief Alta de empleados
  * \param pArrayListEmployee LinkedList* Puntero a la lista del tipo LinkedList* donde será añadido el empleado
  * \return int Retorna 0 OK o (-1) ERROR
@@ -102,9 +102,9 @@ int controller_addCliente(LinkedList* pArrayListCliente)
 				idMaximoEncontrado(pArrayListCliente, &idAux);
 				idAux = idAux + 1;
 			}
-			if(cliente_newParametros(idAux,auxNombre,cuitAux,auxApellido) >= 0)
+			if(cliente_newParametros(idAux,auxNombre,cuitAux,auxApellido,0) >= 0)
 			{
-				pAuxiliarCliente = (Cliente*)cliente_newParametros(idAux,auxNombre,cuitAux,auxApellido);
+				pAuxiliarCliente = (Cliente*)cliente_newParametros(idAux,auxNombre,cuitAux,auxApellido,0);
 				ll_add(pArrayListCliente,pAuxiliarCliente);
 				retorno = 0;
 				printf("Cliente creado correctamente en la ubicación %d\n", idAux);
@@ -541,4 +541,74 @@ int controller_containsElemento(LinkedList* pArrayListCliente, Cliente* cliente 
 	}
 
 	return retorno;
+}
+
+
+int info_CantVentasXCliente(LinkedList* pArrayListAfiche, LinkedList* pArrayListCliente, int choice)
+{
+	int result = -1;
+	int i;
+	int qty = 0;
+	Cliente* pClient;
+	int bufferIdClient;
+	LinkedList* newList = NULL;
+	char status[15];
+
+	if(pArrayListAfiche != NULL && pArrayListCliente != NULL)
+	{
+		newList = ll_newLinkedList();
+		for (i = 0; i < ll_len(pArrayListCliente); i++)
+		{
+			pClient = (Cliente*) ll_get(pArrayListCliente,i);
+			if(pClient != NULL)
+			{
+				cliente_getId(pClient,&bufferIdClient);
+				if (info_qtySalesById(pArrayListAfiche,&qty,choice,bufferIdClient) == 0 && qty >= 0)
+				{
+					cliente_setCantidadAfichesCliente(pClient,qty);
+					result = ll_add(newList,pClient);
+				}
+			}
+		}
+		if(choice == 0)
+		{
+			sprintf(status,"A Cobrar.txt");
+		} else {
+			sprintf(status,"Cobradas.txt");
+		}
+		//controller_loadOrSaveFromTxt(newList,status,"w",parser_ClientQtySalesCharged);
+		controller_loadFromText(status, newList);
+		controller_saveAsText(status, newList);
+	}
+	return result;
+}
+
+int info_qtySalesById(LinkedList* listSale, int* qty,int choice,int id)
+{
+	int result = -1;
+	int i;
+	int counter = 0;
+	Afiche* pSale;
+	int status;
+	int bufferIdClient;
+
+	if (listSale != NULL && qty != NULL && (choice == 0 || choice == 1) && id > 0)
+	{
+		for (i = 0; i < ll_len(listSale); i++)
+		{
+			pSale = (Afiche*) ll_get(listSale,i);
+			if(pSale != NULL)
+			{
+				afiche_getEstadoNum(pSale,&status);
+				afiche_getIdCliente(pSale,&bufferIdClient);
+				if(status == choice && bufferIdClient == id)
+				{
+					counter++;
+				}
+			}
+		}
+		*qty = counter;
+		result = 0;
+	}
+	return result;
 }
