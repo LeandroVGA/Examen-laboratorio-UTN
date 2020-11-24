@@ -6,14 +6,14 @@ typedef struct
 {
     int id;
     char nombre[NOMBRE_LEN];
-    int cuit;
+    char cuit[NOMBRE_LEN];
     char apellido [NOMBRE_LEN];
 
 }Cliente;
 
 Cliente* cliente_new(void);
 Cliente* cliente_newParametrosTxt(char* idStr,char* nombreStr,char* cuitStr, char* apellidoStr);
-Cliente* cliente_newParametros(int id, char* nombre, int cuit, char* apellido);
+Cliente* cliente_newParametros(int id, char* nombre, char* cuit, char* apellido);
 void cliente_delete();
 
 int cliente_setId(Cliente* this,int id);
@@ -24,10 +24,9 @@ int cliente_getIdTxt(Cliente* this,char* id);
 int cliente_setNombre(Cliente* this,char* nombre);
 int cliente_getNombre(Cliente* this,char* nombre);
 
-int cliente_setCuit(Cliente* this,int cuit);
-int cliente_setCuitTxt(Cliente* this,char* cuit);
-int cliente_getCuit(Cliente* this,int* cuit);
-int cliente_getCuitTxt(Cliente* this,char* cuit);
+int cliente_setCuit(Cliente* this,char* cuit);
+int cliente_getCuit(Cliente* this,char* cuit);
+
 
 int cliente_setApellido(Cliente* this,char* apellido);
 int cliente_getApellido(Cliente* this,char* apellido);

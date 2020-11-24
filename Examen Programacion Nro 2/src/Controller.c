@@ -83,14 +83,14 @@ int controller_addCliente(LinkedList* pArrayListCliente)
 	Cliente* pAuxiliarCliente;
 	char auxNombre[LEN_AUX];
 	char auxApellido[LEN_AUX];
-	int cuitAux;
+	char cuitAux[LEN_AUX];
 	int idAux;
 
 	if(pArrayListCliente != NULL)
 	{
 		if(!(utn_getNombre(auxNombre, LEN_AUX,"Ingrese nombre\n", "Valor incorrecto\n",2)) &&
 		   !(utn_getNombre(auxApellido, LEN_AUX,"Ingrese apellido\n", "Valor incorrecto\n",2)) &&
-		   !(utn_getNumeroLong(&cuitAux,"Ingrese cuit\n", "Valor incorrecto\n",1, 99999999999,2)))
+		   !(utn_getNombre(cuitAux, LEN_AUX,"Ingrese cuitttt\n", "Valor incorrecto\n",2)))
 		{
 			if(ll_len(pArrayListCliente) == 0)
 			{
@@ -128,7 +128,7 @@ int controller_editCliente(LinkedList* pArrayListCliente)
 	int opcionAux;
 	char auxNombre[LEN_AUX];
 	char auxApellido[LEN_AUX];
-	int cuitAux;
+	char cuitAux[LEN_AUX];
 
 
 	if(pArrayListCliente != NULL)
@@ -147,7 +147,7 @@ int controller_editCliente(LinkedList* pArrayListCliente)
 				{
 					if(!(utn_getNombre(auxNombre, LEN_AUX,"Ingrese nombre\n", "Valor incorrecto\n",2)) &&
 					   !(utn_getNombre(auxApellido, LEN_AUX,"Ingrese apellido\n", "Valor incorrecto\n",2)) &&
-					   !(utn_getNumero(&cuitAux,"Ingrese cuit\n", "Valor incorrecto\n",1, 1000,2)))
+					   !(utn_getNombre(cuitAux, LEN_AUX,"Ingrese cuit\n", "Valor incorrecto\n",2)))
 					{
 					retorno = 0;
 					cliente_setNombre(auxCliente, auxNombre);

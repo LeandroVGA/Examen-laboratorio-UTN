@@ -50,7 +50,7 @@ Cliente* cliente_newParametrosTxt(char* idStr,char* nombreStr,char* cuitStr, cha
 	{
 		if(	cliente_setNombre(this,nombreStr) == -1 ||
 			cliente_setIdTxt(this,idStr) == -1 ||
-			cliente_setCuitTxt(this,cuitStr) == -1 ||
+			cliente_setCuit(this,cuitStr) == -1 ||
 			cliente_setApellido(this, apellidoStr) == -1)
 		{
 			cliente_delete(this);
@@ -70,11 +70,11 @@ Cliente* cliente_newParametrosTxt(char* idStr,char* nombreStr,char* cuitStr, cha
  *
  */
 
-Cliente* cliente_newParametros(int id, char* nombre,int cuit, char* apellido)
+Cliente* cliente_newParametros(int id, char* nombre,char* cuit, char* apellido)
 {
 	Cliente* this = NULL;
 	this = cliente_new();
-	if(this != NULL && nombre != NULL && apellido != NULL && cuit > 0)
+	if(this != NULL && nombre != NULL && apellido != NULL && cuit != NULL)
 
 	{
 		if(	cliente_setId(this, id) == -1 ||
@@ -169,7 +169,7 @@ int cliente_setApellido(Cliente* this,char* apellido){
 		if(isValidNombre(apellido,NOMBRE_LEN))
 		{
 			retorno = 0;
-			strncpy(this->nombre,apellido,NOMBRE_LEN);
+			strncpy(this->apellido,apellido,NOMBRE_LEN);
 		}
 	}
 	return retorno;
@@ -183,7 +183,7 @@ int cliente_getApellido(Cliente* this,char* apellido){
 	if(this != NULL && apellido != NULL)
 	{
 		retorno = 0;
-		strncpy(apellido,this->nombre,NOMBRE_LEN);
+		strncpy(apellido,this->apellido,NOMBRE_LEN);
 	}
 	return retorno;
 
@@ -274,15 +274,18 @@ int cliente_getIdTxt(Cliente* this,char* id)
  * \return int (-1) ERROR y (0) OK
  */
 
-int cliente_setCuit(Cliente* this,int idCamion)
+int cliente_setCuit(Cliente* this,char* cuit)
 {
 	int retorno = -1;
-	if(this != NULL && idCamion >= 0)
-	{
-		retorno = 0;
-		this->cuit = idCamion;
-	}
-	return retorno;
+		if(this != NULL && cuit != NULL)
+		{
+			if(isValidNombre(cuit,NOMBRE_LEN))
+			{
+				retorno = 0;
+				strncpy(this->cuit,cuit,NOMBRE_LEN);
+			}
+		}
+		return retorno;
 }
 
 
@@ -293,19 +296,7 @@ int cliente_setCuit(Cliente* this,int idCamion)
  * \return int (-1) ERROR y (0) OK
  */
 
-int cliente_setCuitTxt(Cliente* this,char* idCamion)
-{
-	int retorno = -1;
-	if(this != NULL && idCamion != NULL)
-	{
-		if(esNumerica(idCamion,10))
-		{
-			retorno = 0;
-			this->cuit = atoi(idCamion);
-		}
-	}
-	return retorno;
-}
+
 
 /**
  * \brief Se obtendrán las horas trabajadas del empleado pasado por parámetro
@@ -315,15 +306,15 @@ int cliente_setCuitTxt(Cliente* this,char* idCamion)
  */
 
 
-int cliente_getCuit(Cliente* this,int* cuit)
+int cliente_getCuit(Cliente* this,char* cuit)
 {
 	int retorno = -1;
-	if(this != NULL && cuit != NULL)
-	{
-		retorno = 0;
-		*cuit = this->cuit;
-	}
-	return retorno;
+if(this != NULL && cuit != NULL)
+{
+	retorno = 0;
+	strncpy(cuit,this->cuit,NOMBRE_LEN);
+}
+return retorno;
 }
 
 /**
@@ -334,16 +325,7 @@ int cliente_getCuit(Cliente* this,int* cuit)
  */
 
 
-int cliente_getCuitTxt(Cliente* this,char* idCamion)
-{
-	int retorno = -1;
-	if(this != NULL && idCamion != NULL)
-	{
-		retorno = 0;
-		sprintf(idCamion,"%d",this->cuit);
-	}
-	return retorno;
-}
+
 
 
 
@@ -419,7 +401,7 @@ int cliente_imprimir(Cliente* this)
 	char idAux[LEN_AUX];
 	char nombre[LEN_AUX];
 	char apellido[LEN_AUX];
-	int cuit;
+	char cuit[LEN_AUX];
 
 	if(this != NULL)
 	{
@@ -427,9 +409,9 @@ int cliente_imprimir(Cliente* this)
 		cliente_getIdTxt(this,idAux);
 		cliente_getNombre(this,nombre);
 		cliente_getApellido(this, apellido);
-		cliente_getCuit(this, &cuit);
+		cliente_getCuit(this, cuit);
 
-		printf("ID: %10s - Nombre %10s - Apellido: %10s - Cuit %10d\n",idAux
+		printf("ID: %10s - Nombre %10s - Apellido: %10s - Cuit %10s\n",idAux
 																	   ,nombre
 																	   ,apellido
 																	   ,cuit);
@@ -461,7 +443,7 @@ int cliente_imprimirGral(void* this)
 		cliente_getIdTxt(auxElemento,idAux);
 		cliente_getNombre(auxElemento,nombreAux);
 		cliente_getApellido(this, apellidoAux);
-		cliente_getCuitTxt(auxElemento,cuitAux);
+		cliente_getCuit(auxElemento,cuitAux);
 
 		printf("ID: %10s -Nombre:  %10s - Apellido: %10s - Cuit:  %10s\n",idAux
 																	   ,nombreAux
