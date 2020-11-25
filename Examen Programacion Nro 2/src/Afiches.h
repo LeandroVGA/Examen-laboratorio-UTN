@@ -9,7 +9,6 @@ typedef struct
     char nombreArchivo[NOMBRE_LEN];
     int cantidadAfiches;
     char zona [NOMBRE_LEN];
-
     int estadoNum;
 }Afiche;
 

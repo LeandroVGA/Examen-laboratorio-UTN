@@ -1,6 +1,7 @@
 #include "Cliente.h"
 
-int controller_loadFromText(char* path , LinkedList* pArrayListCliente);
+int controller_loadFromTextCliente(char* path , LinkedList* pArrayListCliente);
+int controller_loadFromTextAfiche(char* path , LinkedList* pArrayListCliente);
 int controller_loadFromBinary(char* path , LinkedList* pArrayListCliente);
 int controller_addCliente(LinkedList* pArrayListCliente);
 int controller_addAfiche(LinkedList* pArrayListAfiches,LinkedList* pArrayListAClientes);

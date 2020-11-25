@@ -38,7 +38,7 @@ int main(void) {
 
 
 	 do{
-		// controller_loadFromText("Afiches.txt",listaAfiches);
+		 controller_loadFromTextAfiche("Afiches.txt",listaAfiches);
 	        	utn_getNumero(&option,"1. Cargar los datos de los empleados desde el archivo data.csv (modo texto)\n"
 	        						  "2. Cargar los datos de los empleados desde el archivo data.csv (modo binario)\n"
 	        						  "3. Alta de empleado\n" //FALTA PULIR
@@ -64,7 +64,7 @@ int main(void) {
 	                case 1:
 	                	if(archivoCargado == 0)
 	                	{
-							if(!controller_loadFromText("Clientes.txt",listaClientes))
+							if(!controller_loadFromTextCliente("Clientes.txt",listaClientes))
 							{
 								archivoCargado = 1;
 							}
@@ -120,7 +120,7 @@ int main(void) {
 	                case 10:
 	                	if(archivoCargado == 0)
 							{
-								if(!controller_loadFromText("Afiches.txt",listaAfiches))
+								if(!controller_loadFromTextAfiche("Afiches.txt",listaAfiches))
 								{
 									archivoCargado = 1;
 								}

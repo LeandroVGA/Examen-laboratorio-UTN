@@ -22,7 +22,7 @@ static int idMaximoEncontrado(LinkedList* pArrayListCliente, int* idMaximo);
  * \return int 0 si salió OK o (-1) ERROR
  *
  */
-int controller_loadFromText(char* path , LinkedList* pArrayListCliente)
+int controller_loadFromTextCliente(char* path , LinkedList* pArrayListCliente)
 {
 	int retorno = -1;
 	FILE *pArch;
@@ -44,22 +44,15 @@ int controller_loadFromText(char* path , LinkedList* pArrayListCliente)
 	return retorno;
 }
 
-/** \brief Carga los datos de los empleados desde el archivo data.dat (modo binario).
- *
- * \param path char* Nombre del archivo a cargar
- * \param pArrayListEmployee LinkedList* Puntero del tipo LinkedList* a la lista donde se guardará la información
- * \return int 0 si salió OK o (-1) ERROR
- *
- */
-/*int controller_loadFromBinary(char* path , LinkedList* pArrayListCliente)
+int controller_loadFromTextAfiche(char* path , LinkedList* pArrayListAfiche)
 {
 	int retorno = -1;
 	FILE *pArch;
-	if(path != NULL && pArrayListCliente != NULL)
+	if(path != NULL && pArrayListAfiche != NULL)
 	{
 
-		pArch = fopen(path, "rb");
-		if(pArch != NULL && parser_ClienteFromBinary(pArch,pArrayListCliente)==0)
+		pArch = fopen(path, "rw");
+		if(pArch != NULL && parser_AfichesFromText(pArch,pArrayListAfiche)==0)
 		{
 			printf("Archivo cargado existosamente\n");
 			retorno = 0;
@@ -71,7 +64,9 @@ int controller_loadFromText(char* path , LinkedList* pArrayListCliente)
 	}
 
 	return retorno;
-}*/
+}
+
+
 /** \brief Alta de empleados
  * \param pArrayListEmployee LinkedList* Puntero a la lista del tipo LinkedList* donde será añadido el empleado
  * \return int Retorna 0 OK o (-1) ERROR
@@ -576,7 +571,8 @@ int info_CantVentasXCliente(LinkedList* pArrayListAfiche, LinkedList* pArrayList
 			sprintf(status,"Cobradas.txt");
 		}
 		//controller_loadOrSaveFromTxt(newList,status,"w",parser_ClientQtySalesCharged);
-		controller_loadFromText(status, newList);
+		controller_loadFromTextCliente(status, newList);
+		controller_loadFromTextAfiche(status, newList);
 		controller_saveAsText(status, newList);
 	}
 	return result;
