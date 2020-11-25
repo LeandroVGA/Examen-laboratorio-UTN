@@ -43,18 +43,17 @@ Afiche* afiche_new(void)
  */
 
 Afiche* afiche_newParametrosTxt(char* idStr,char* idClienteStr,char* nombreArchivoStr,
-		char* cantidadAfichesStr, char* zonaStr, char* estadoStr, char* estadoNumStr)
+		char* cantidadAfichesStr, char* zonaStr, char* estadoNumStr)
 {
 	Afiche* this = NULL;
 	this = afiche_new();
-	if(this != NULL && idClienteStr != NULL && nombreArchivoStr != NULL && cantidadAfichesStr > 0 && zonaStr != NULL && estadoStr != NULL && estadoNumStr != NULL)
+	if(this != NULL && idClienteStr != NULL && nombreArchivoStr != NULL && cantidadAfichesStr > 0 && zonaStr != NULL && estadoNumStr != NULL)
 	{
 		if(	afiche_setIdClienteTxt(this, idClienteStr) == -1 ||
 			afiche_setIdTxt(this,idStr) == -1 ||
 			afiche_setNombreArchivo(this, nombreArchivoStr) == -1 ||
 			afiche_setCantidadAfichesTxt(this, cantidadAfichesStr) == -1 ||
 			afiche_setZona(this, zonaStr) == -1 ||
-			afiche_setEstado(this, estadoStr) == -1 ||
 			afiche_setEstadoNumTxt(this, estadoNumStr))
 		{
 			afiche_delete(this);
@@ -75,18 +74,17 @@ Afiche* afiche_newParametrosTxt(char* idStr,char* idClienteStr,char* nombreArchi
  */
 
 Afiche* afiche_newParametros(int id,int idCliente,char* nombreArchivo,
-		int cantidadAfiches, char* zona, char* estado, int estadoNum)
+		int cantidadAfiches, char* zona, int estadoNum)
 {
 	Afiche* this = NULL;
 	this = afiche_new();
-	if(this != NULL && nombreArchivo != NULL  && zona != NULL && estado != NULL )
+	if(this != NULL && nombreArchivo != NULL  && zona != NULL)
 	{
 		if(	afiche_setIdCliente(this, idCliente) == -1 ||
 			afiche_setId(this,id) == -1 ||
 			afiche_setNombreArchivo(this, nombreArchivo) == -1 ||
 			afiche_setCantidadAfiches(this, cantidadAfiches) == -1 ||
 			afiche_setZona(this, zona) == -1 ||
-			afiche_setEstado(this, estado) == -1 ||
 			afiche_setEstadoNum(this, estadoNum) == -1)
 
 		{
@@ -171,34 +169,6 @@ int afiche_setNombreArchivo(Afiche* this,char* nombreArchivo){
 
 }
 
-int afiche_setEstado(Afiche* this,char* estado){
-
-	int retorno = -1;
-	if(this != NULL && estado != NULL)
-	{
-		if(isValidNombre(estado,NOMBRE_LEN))
-		{
-			retorno = 0;
-			strncpy(this->estado,estado,NOMBRE_LEN);
-		}
-	}
-	return retorno;
-
-
-
-}
-int afiche_getEstado(Afiche* this,char* estado){
-
-	int retorno = -1;
-	if(this != NULL && estado != NULL)
-	{
-		retorno = 0;
-		strncpy(estado,this->estado,LEN_AUX);
-	}
-	return retorno;
-
-
-}
 
 
 int afiche_getNombreArchivo(Afiche* this,char* nombreArchivo)
@@ -588,8 +558,18 @@ int afiche_imprimirGral(void* this)
 		afiche_getNombreArchivo(this,nombreArchivo);
 		afiche_getCantidadAfiches(this, &cantidadAfiche);
 		afiche_getZona(this, zona);
-		afiche_getEstado(this, estado);
+		afiche_getEstadoNumTxt(this, estado);
 		afiche_getIdCliente(this, &idCliente);
+
+		if(strncmp(estado,"1",sizeof(estado)) == 0){
+
+			strncpy(estado,"A Cobrar",sizeof(estado));
+		}else{
+
+			strncpy(estado,"Cobrado",sizeof(estado));
+
+		}
+
 		printf("ID: %10s - Id Cliente %10d  - Nombre archivos %10s - Cantidad Afiches: %10d - Zona %10s - Estado %10s\n",idAux
 																			   ,&idCliente
 																			   ,nombreArchivo
@@ -730,8 +710,17 @@ int afiche_imprimir(Afiche* this)
 		afiche_getNombreArchivo(this, nombreArchivo);
 		afiche_getCantidadAfichesTxt(this, cantidadAfiches);
 		afiche_getZona(this, zona);
-		afiche_getEstado(this, estado);
+		afiche_getEstadoNumTxt(this, estado);
 
+
+		if(strncmp(estado,"1",sizeof(estado)) == 0){
+
+			strncpy(estado,"A Cobrar",sizeof(estado));
+		}else{
+
+			strncpy(estado,"Cobrado",sizeof(estado));
+
+		}
 
 		printf("ID: %10s - Id Cliente: %10s - Nombre Afiche: %10s - Cantidad Afiche: %10s - Zona: %10s - Estado:  %10s \n",idAux
 																	   ,idCliente

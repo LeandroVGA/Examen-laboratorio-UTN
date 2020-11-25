@@ -33,11 +33,11 @@ int parser_ClienteFromText(FILE* pFile , LinkedList* pArrayListCliente)
 
 		if(pFile != NULL && pArrayListCliente != NULL)
 		{
-			printf("\n ENTRE AL FSCAN \n");
+
 				do
 				{
-						printf("\n ENTRE AL FSCAN \n");
-					if(fscanf(pFile,"%[^,],%[^,],%[^,],%[^,],%[^\n]\n",auxiliarId,auxiliarNombre,auxiliarApellido,auxiliarCuit,auxiliarCantidad)== 4)
+
+					if(fscanf(pFile,"%[^,],%[^,],%[^,],%[^,],%[^\n]\n",auxiliarId,auxiliarNombre,auxiliarApellido,auxiliarCuit,auxiliarCantidad) == 5)
 					{
 						if(cliente_newParametrosTxt(auxiliarId,auxiliarNombre,auxiliarApellido,auxiliarCuit,auxiliarCantidad) >= 0)
 						{

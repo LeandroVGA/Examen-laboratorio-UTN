@@ -9,16 +9,16 @@ typedef struct
     char nombreArchivo[NOMBRE_LEN];
     int cantidadAfiches;
     char zona [NOMBRE_LEN];
-    char estado [NOMBRE_LEN];
+
     int estadoNum;
 }Afiche;
 
 
 Afiche* afiche_new(void);
 Afiche* afiche_newParametrosTxt(char* idStr,char* idClienteStr,char* nombreArchivoStr,
-		char* cantidadAfichesStr, char* zonaStr, char* estadoStr, char* estadoNumStr);
+		char* cantidadAfichesStr, char* zonaStr, char* estadoNumStr);
 Afiche* afiche_newParametros(int id,int idCliente,char* nombreArchivo,
-		int cantidadAfiches, char* zona, char* estado, int estadoNum);
+		int cantidadAfiches, char* zona, int estadoNum);
 void afiche_delete();
 
 int afiche_setId(Afiche* this,int id);
@@ -43,8 +43,7 @@ int afiche_getCantidadAfichesTxt(Afiche* this,char* cantidadAfiches);
 int afiche_setZona(Afiche* this,char* zona);
 int afiche_getZona(Afiche* this,char* zona);
 
-int afiche_setEstado(Afiche* this,char* estado);
-int afiche_getEstado(Afiche* this,char* estado);
+
 
 int afiche_setEstadoNum(Afiche* this,int estadoNum);
 int afiche_setEstadoNumTxt(Afiche* this,char* estadoNum);

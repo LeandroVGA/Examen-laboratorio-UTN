@@ -38,6 +38,7 @@ int main(void) {
 
 
 	 do{
+		// controller_loadFromText("Afiches.txt",listaAfiches);
 	        	utn_getNumero(&option,"1. Cargar los datos de los empleados desde el archivo data.csv (modo texto)\n"
 	        						  "2. Cargar los datos de los empleados desde el archivo data.csv (modo binario)\n"
 	        						  "3. Alta de empleado\n" //FALTA PULIR

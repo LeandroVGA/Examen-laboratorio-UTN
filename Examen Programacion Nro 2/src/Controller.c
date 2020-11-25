@@ -162,14 +162,13 @@ int controller_addAfiche(LinkedList* pArrayListAfiches,LinkedList* pArrayListACl
 				idAux = idAux + 1;
 			}
 
+			afiche_setEstadoNumTxt(pAuxiliarAfiche, 0);
 
-			estadoNum = 1;
-			strncpy(estado,"A cobrar",sizeof(estado));
-			afiche_setEstado(pArrayListAfiches, estado);
 
-			if(afiche_newParametros(idAux,idCliente,nombreArchivo,cantidadAfiches,zona,estado,estadoNum) >= 0)
+
+			if(afiche_newParametros(idAux,idCliente,nombreArchivo,cantidadAfiches,zona,estadoNum) >= 0)
 			{
-			    pAuxiliarAfiche = (Afiche*)afiche_newParametros(idAux,idCliente,nombreArchivo,cantidadAfiches,zona,estado,estadoNum);
+			    pAuxiliarAfiche = (Afiche*)afiche_newParametros(idAux,idCliente,nombreArchivo,cantidadAfiches,zona,estadoNum);
 				ll_add(pArrayListAfiches,pAuxiliarAfiche);
 				retorno = 0;
 				printf("Afiche creado correctamente en la ubicación %d\n", idAux);
