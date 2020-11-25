@@ -713,7 +713,7 @@ int afiche_imprimir(Afiche* this)
 		afiche_getEstadoNumTxt(this, estado);
 
 
-		if(strncmp(estado,"1",sizeof(estado)) == 0){
+		if(strncmp(estado,"0",sizeof(estado)) != 0){
 
 			strncpy(estado,"A Cobrar",sizeof(estado));
 		}else{

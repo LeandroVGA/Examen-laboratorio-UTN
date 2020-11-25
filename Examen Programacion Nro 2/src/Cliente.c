@@ -53,7 +53,7 @@ Cliente* cliente_newParametrosTxt(char* idStr,char* nombreStr,char* apellidoStr,
 			cliente_setIdTxt(this,idStr) == -1 ||
 			cliente_setCuit(this,cuitStr) == -1 ||
 			cliente_setApellido(this, apellidoStr) == -1||
-			cliente_setCantidadAfichesCliente(this, cantidadVentas) == -1)
+			cliente_setCantidadAfichesClienteTxt(this, cantidadVentas) == -1)
 		{
 			cliente_delete(this);
 			this = NULL;

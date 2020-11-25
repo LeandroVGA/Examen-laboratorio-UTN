@@ -34,11 +34,13 @@ int main(void) {
 	LinkedList* listaClientes = ll_newLinkedList();
 	LinkedList* listaAfiches = ll_newLinkedList();
 
+	controller_loadFromTextCliente("Clientes.txt",listaClientes);
+	controller_loadFromTextAfiche("Afiches.txt",listaAfiches);
+
 
 
 
 	 do{
-		 controller_loadFromTextAfiche("Afiches.txt",listaAfiches);
 	        	utn_getNumero(&option,"1. Cargar los datos de los empleados desde el archivo data.csv (modo texto)\n"
 	        						  "2. Cargar los datos de los empleados desde el archivo data.csv (modo binario)\n"
 	        						  "3. Alta de empleado\n" //FALTA PULIR
@@ -64,10 +66,8 @@ int main(void) {
 	                case 1:
 	                	if(archivoCargado == 0)
 	                	{
-							if(!controller_loadFromTextCliente("Clientes.txt",listaClientes))
-							{
-								archivoCargado = 1;
-							}
+	                		controller_loadFromTextCliente("Clientes.txt",listaClientes);
+	                		//controller_saveAsTextCliente("Clientes.txt",listaClientes);
 	                	}
 	                	else
 	                	{
@@ -88,7 +88,7 @@ int main(void) {
 	                case 3:
 	                	if(controller_addCliente(listaClientes)!=-1)
 	                	  {
-	                	    controller_saveAsText("data.dat",listaClientes);
+	                	    controller_saveAsTextCliente("Clientes.txt",listaClientes);
 	                	   }
 
 
@@ -113,7 +113,12 @@ int main(void) {
 	                    break;
 	                case 9:
 
-	                  controller_addAfiche(listaAfiches,listaClientes);
+	                 if( controller_addAfiche(listaAfiches,listaClientes) != -1){
+
+						controller_saveAsTextAfiche("Afiche.txt",listaClientes);
+
+
+	                 }
 
 	                	//controller_saveAsBinary("data.dat",listaClientes);
 	                    break;

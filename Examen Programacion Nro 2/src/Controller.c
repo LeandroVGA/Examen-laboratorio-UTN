@@ -38,7 +38,7 @@ int controller_loadFromTextCliente(char* path , LinkedList* pArrayListCliente)
 		}
 		else
 
-			printf("El archivo no puede abrirse\n");
+			printf("El archivo no puede abrirse\n\n");
 	}
 
 	return retorno;
@@ -54,7 +54,7 @@ int controller_loadFromTextAfiche(char* path , LinkedList* pArrayListAfiche)
 		pArch = fopen(path, "rw");
 		if(pArch != NULL && parser_AfichesFromText(pArch,pArrayListAfiche)==0)
 		{
-			printf("Archivo cargado existosamente\n");
+			printf("Archivo cargado existosamente\n\n");
 			retorno = 0;
 			fclose(pArch);
 		}
@@ -129,8 +129,9 @@ int controller_addAfiche(LinkedList* pArrayListAfiches,LinkedList* pArrayListACl
 	char nombreArchivo[LEN_AUX];
 	int cantidadAfiches;
 	char zona[LEN_AUX];
-	char estado[LEN_AUX];
+	//char estado[LEN_AUX];
 	int estadoNum;
+	char numero[1] = "0";
 
 
 	if(pArrayListAfiches != NULL)
@@ -157,7 +158,6 @@ int controller_addAfiche(LinkedList* pArrayListAfiches,LinkedList* pArrayListACl
 				idAux = idAux + 1;
 			}
 
-			afiche_setEstadoNumTxt(pAuxiliarAfiche, 0);
 
 
 
@@ -167,6 +167,7 @@ int controller_addAfiche(LinkedList* pArrayListAfiches,LinkedList* pArrayListACl
 				ll_add(pArrayListAfiches,pAuxiliarAfiche);
 				retorno = 0;
 				printf("Afiche creado correctamente en la ubicación %d\n", idAux);
+				afiche_setEstadoNumTxt(pAuxiliarAfiche, numero);
 
 			}
 			afiche_imprimir(pAuxiliarAfiche);
@@ -365,7 +366,7 @@ int controller_sortClientebyID(LinkedList* pArrayListCliente)
  * \return int 0 OK, (-1) ERROR
  *
  */
-int controller_saveAsText(char* path , LinkedList* pArrayListCliente)
+int controller_saveAsTextCliente(char* path , LinkedList* pArrayListCliente)
 {
 	int retorno=-1;
 	int i;
@@ -374,6 +375,7 @@ int controller_saveAsText(char* path , LinkedList* pArrayListCliente)
 	char auxiliarNombre[NOMBRE_LEN];
 	char auxApellido[NOMBRE_LEN];
 	char auxCuit[NOMBRE_LEN];
+	int cantidadAfichesCliente;
 	Cliente* auxCliente;
 
 	if(pArrayListCliente != NULL && path != NULL)
@@ -391,9 +393,56 @@ int controller_saveAsText(char* path , LinkedList* pArrayListCliente)
 					if(!cliente_getId(auxCliente,&auxiliarId) &&
 					   !cliente_getNombre(auxCliente,auxiliarNombre) &&
 					   !cliente_getCuit(auxCliente,auxCuit) &&
-					   !cliente_getApellido(auxCliente,auxApellido))
+					   !cliente_getApellido(auxCliente,auxApellido)&&
+					   !cliente_getCantidadAfichesCliente(auxCliente, &cantidadAfichesCliente))
 					{
-						fprintf(fpArchivo,"%d,%s,%s,%s\n",auxiliarId,auxiliarNombre,auxApellido,auxCuit);
+						fprintf(fpArchivo,"%d,%s,%s,%s,%d\n",auxiliarId,auxiliarNombre,auxApellido,auxCuit,cantidadAfichesCliente);
+					}
+				}
+
+			}
+			fclose(fpArchivo);
+			printf("Archivo guardado correctamente\n");
+
+		}
+	}
+	return retorno;
+}
+
+
+int controller_saveAsTextAfiche(char* path , LinkedList* pArrayListAfiche)
+{
+	int retorno=-1;
+	int i;
+	FILE* fpArchivo;
+	int id;
+	int idCliente;
+	char nombreArchivo[NOMBRE_LEN];
+	int cantidadAfiches;
+	char zona [NOMBRE_LEN];
+	int estadoNum;
+	Afiche* auxAfiche;
+
+	if(pArrayListAfiche != NULL && path != NULL)
+	{
+
+		fpArchivo = fopen(path,"w");
+		if(fpArchivo != NULL)
+		{
+			retorno=0;
+			for(i=0;i<ll_len(pArrayListAfiche);i++)
+			{
+				auxAfiche = (Afiche*)ll_get(pArrayListAfiche,i);
+				if(auxAfiche != NULL)
+				{
+					if(!afiche_getId(auxAfiche,&id) &&
+				 	   !afiche_getIdCliente(auxAfiche,&idCliente) &&
+					   !afiche_getNombreArchivo(auxAfiche,nombreArchivo) &&
+					   !afiche_getCantidadAfiches(auxAfiche,&cantidadAfiches) &&
+					   !afiche_getZona(auxAfiche,zona) &&
+					   !afiche_getEstadoNum(auxAfiche,&estadoNum))
+					{
+						fprintf(fpArchivo,"%d,%d,%s,%d,%s,%d\n",id,idCliente,nombreArchivo,cantidadAfiches,zona,estadoNum);
 					}
 				}
 
@@ -572,8 +621,9 @@ int info_CantVentasXCliente(LinkedList* pArrayListAfiche, LinkedList* pArrayList
 		}
 		//controller_loadOrSaveFromTxt(newList,status,"w",parser_ClientQtySalesCharged);
 		controller_loadFromTextCliente(status, newList);
-		controller_loadFromTextAfiche(status, newList);
-		controller_saveAsText(status, newList);
+		//controller_loadFromTextAfiche(status, newList);
+		controller_saveAsTextCliente(status, newList);
+		//controller_saveAsTextAfiche(status, newList);
 	}
 	return result;
 }
