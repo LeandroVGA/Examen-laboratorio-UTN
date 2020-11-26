@@ -982,7 +982,7 @@ LinkedList* newList= NULL;
 int acumulador = 0;
 int index;
 int idCliente;
-newList2 = ll_newLinkedList();
+//newList2 = ll_newLinkedList();
 //int estadoNumAux;
 int auxiliar;
 
@@ -995,15 +995,10 @@ if(pArrayListCliente != NULL)
 		{
 			auxCliente = (Cliente*)ll_get(newList,i);
 			auxiliar=0;
-
-
 			cliente_getCantidadAfichesCliente(auxCliente, &auxiliar);
-
-
-
-			if(i == 0 || auxiliar > acumulador){
-
 				idCliente = auxCliente->id;
+
+			if(auxiliar > acumulador){
 
 				acumulador = auxiliar;
 				index = controller_buscarPorIdArray(newList, idCliente);
@@ -1011,8 +1006,44 @@ if(pArrayListCliente != NULL)
 
 			}
 		}
-		cliente_imprimir(auxCliente);
+				cliente_imprimir(auxCliente);
 
+		}
+return retorno;
+}
+
+int controller_infoMenor(LinkedList* pArrayListCliente,LinkedList* pArrayListAfiche){
+
+int retorno = -1;
+Cliente* auxCliente;
+LinkedList* newList= NULL;
+int acumulador = 0;
+int index;
+int idCliente;
+int auxiliar;
+
+newList=ll_clone(pArrayListCliente);
+
+if(pArrayListCliente != NULL)
+	{
+
+		for(int i=0;i<ll_len(pArrayListCliente);i++)
+		{
+			auxCliente = (Cliente*)ll_get(newList,i);
+			auxiliar=0;
+			cliente_getCantidadAfichesCliente(auxCliente, &auxiliar);
+
+			if(i == 0 || auxiliar < acumulador){
+
+				idCliente = auxCliente->id;
+				acumulador = auxiliar;
+				index = controller_buscarPorIdArray(newList, idCliente);
+				auxCliente = (Cliente*)ll_get(newList,index);
+
+			}
+		}
+
+				cliente_imprimir(auxCliente);
 		}
 return retorno;
 }

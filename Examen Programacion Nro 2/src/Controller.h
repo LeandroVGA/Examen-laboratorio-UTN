@@ -25,3 +25,4 @@ int controller_editAficheAcobrar(LinkedList* pArrayListAfiche, LinkedList* pArra
 int controller_InfoACobrar(LinkedList* pArrayListAfiche, LinkedList* pArrayListCliente);
 int controller_InfoCobrado(LinkedList* pArrayListAfiche, LinkedList* pArrayListCliente);
 int controller_infoMayor(LinkedList* pArrayListCliente,LinkedList* pArrayListAfiche);
+int controller_infoMenor(LinkedList* pArrayListCliente,LinkedList* pArrayListAfiche);

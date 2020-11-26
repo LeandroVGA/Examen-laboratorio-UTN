@@ -22,6 +22,7 @@ int main(void) {
 
 	setbuf(stdout,NULL);
 	int option = 0;
+	int option2 = 0;
 	int archivoCargado = 0;
 	Cliente* auxCliente;
 	Afiche* AuxAfiche;
@@ -50,16 +51,8 @@ int main(void) {
 	        						  "7. Generar estadísticas\n"
 	        			 	 	 	  ". *********************************************************\n"
 	        						  "8. Ordenar empleados por ID\n"
-	        						  "9. Guardar los datos de los empleados en el archivo data.csv (modo binario)\n"
-	        						  "10. Guardar los datos de los empleados en el archivo data.csv (modo texto)\n"
-	        						  "11. Buscar empleado\n"
-	        						  "12. Clonar lista\n"
-	        						  "13. Crear sublista\n"
-	        						  "14. Corroborar sublista\n"
-	        						  "15. Filtrar por más de 300 horas trabajadas\n"
-	        						  "16. El sueldo más alto\n"
-	        						  "17. Liquidación total mensual\n"
-	        						  "18. Salir\n",
+	        						  "9. Agregar Afiche\n"
+	        						  "10. Salir\n",
 	    							  "Opción inválida\n",
 	    							  1,18,2);
 	            switch(option)
@@ -115,7 +108,35 @@ int main(void) {
 
 	                    break;
 	                case 7:
-	                	controller_infoMayor(listaClientes,listaAfiches);
+	                	utn_getNumero(&option2, "1. Cliente al que se le vendió mas afiches\n"
+												 "2. Cliente al que se le vendió menos afiches\n" //FALTA PULIR
+												 "3. Venta con mas afiches vendidos (indicar id de venta y cuit de cliente)\n"
+	                							 "4. Salir\n",
+												 "Opción inválida\n",
+												 1,18,2);
+	                		            switch(option2)
+	                		            {
+
+	                		            case 1:
+
+	                		            	controller_infoMayor(listaClientes,listaAfiches);
+	                		            	break;
+
+
+	                		            case 2:
+	                		            	controller_infoMenor(listaClientes,listaAfiches);
+
+	                		            	break;
+
+
+	                		            case 3:
+
+
+	                		            	break;
+
+
+
+	                		            }
 
 	                    break;
 	                case 8:
@@ -130,7 +151,6 @@ int main(void) {
 
 	                 }
 
-	                	//controller_saveAsBinary("data.dat",listaClientes);
 	                    break;
 	                case 10:
 	                	if(archivoCargado == 0)
