@@ -37,8 +37,7 @@ int main(void) {
 	controller_loadFromTextCliente("Clientes.txt",listaClientes);
 	controller_loadFromTextAfiche("Afiches.txt",listaAfiches);
 
-
-
+	controller_ListAfiche(listaAfiches);
 
 	 do{
 	        	utn_getNumero(&option,"1. Cargar los datos de los empleados desde el archivo data.csv (modo texto)\n"
@@ -99,7 +98,7 @@ int main(void) {
 	                	controller_editCliente(listaClientes);
 	                    break;
 	                case 5:
-	                	controller_editAfiche(listaAfiches, listaClientes);
+	                	//controller_editAfiche(listaAfiches, listaClientes);
 	                    break;
 	                case 6:
 	                	controller_ListCliente(listaClientes);

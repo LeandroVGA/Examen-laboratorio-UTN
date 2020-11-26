@@ -227,7 +227,7 @@ int controller_editCliente(LinkedList* pArrayListCliente)
 	return retorno;
 }
 
-void* buscarPorId(LinkedList* list, int id,int choiceList)
+/*void* buscarPorId(LinkedList* list, int id,int choiceList)
 {
 	void* result = NULL;
 	void* pElement;
@@ -257,9 +257,9 @@ void* buscarPorId(LinkedList* list, int id,int choiceList)
 	}
 	return result;
 }
+*/
 
-
-int controller_editAfiche(LinkedList* pArrayListAfiche, LinkedList* pArrayListCliente)
+/*int controller_editAfiche(LinkedList* pArrayListAfiche, LinkedList* pArrayListCliente)
 {
 	int retorno = -1;
 	Afiche* auxAfiche;
@@ -337,7 +337,7 @@ int controller_editAfiche(LinkedList* pArrayListAfiche, LinkedList* pArrayListCl
 
 	return retorno;
 }
-
+*/
 /** \brief Baja de empleado
  *
  * \param pArrayListEmployee LinkedList* Puntero a la lista a ser actualizada
@@ -397,6 +397,27 @@ int controller_ListCliente(LinkedList* pArrayListCliente)
 		{
 			bufferpCliente = ll_get(pArrayListCliente,i);
 			cliente_imprimir(bufferpCliente);
+		}
+
+	}
+	return retorno;
+}
+
+int controller_ListAfiche(LinkedList* pArrayListAfiche)
+{
+	int retorno=-1;
+	int i;
+	Afiche* bufferpAfiche;
+	bufferpAfiche = afiche_new();
+
+	if(pArrayListAfiche != NULL)
+	{
+		retorno=0;
+
+		for(i=0;i<ll_len(pArrayListAfiche);i++)
+		{
+			bufferpAfiche = ll_get(pArrayListAfiche,i);
+			afiche_imprimir(bufferpAfiche);
 		}
 
 	}

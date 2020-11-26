@@ -635,7 +635,7 @@ LinkedList* ll_filter(LinkedList* this, int (*pFunc)(void*))
 
 }
 
-int ll_filter2(LinkedList * this, FunctionFilter pFunc, void* arg)
+/*int ll_filter2(LinkedList * this, FunctionFilter pFunc, void* arg)
 {
 	int returnAux = -1;
 	void* pAux;
@@ -656,7 +656,7 @@ int ll_filter2(LinkedList * this, FunctionFilter pFunc, void* arg)
 		}
 	}
 	return returnAux;
-}
+}*/
 
 
 /** \brief Cuenta los elementos de la lista utilizando la funcion criterio recibida como parametro

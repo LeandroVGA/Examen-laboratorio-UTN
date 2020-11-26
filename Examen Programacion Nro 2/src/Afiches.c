@@ -702,10 +702,8 @@ int afiche_imprimir(Afiche* this)
 
 	if(this != NULL)
 	{
-	printf("\nENTRO AL IMPRIMIR\n");
 		retorno = 0;
 		afiche_getIdTxt(this, idAux);
-		printf("id %s\n",idAux);
 		afiche_getIdClienteTxt(this, idCliente);
 		afiche_getNombreArchivo(this, nombreArchivo);
 		afiche_getCantidadAfichesTxt(this, cantidadAfiches);
@@ -713,7 +711,6 @@ int afiche_imprimir(Afiche* this)
 		afiche_getEstadoNumTxt(this, estado);
 
 
-			printf("\nENTRO AL ELSE\n");
 
 		if(strncmp(estado,"0",sizeof(estado)) != 0){
 			strncpy(estado,"A Cobrar",sizeof(estado));
@@ -729,7 +726,6 @@ int afiche_imprimir(Afiche* this)
 																	   ,cantidadAfiches
 																	   ,zona
 																	   ,estado);
-		printf("\nENTRO3\n");
 		retorno = 0;
 	}
 	return retorno;
