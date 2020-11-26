@@ -20,4 +20,4 @@ int info_qtySalesById(LinkedList* listSale, int* qty,int choice,int id);
 int info_CantVentasXCliente(LinkedList* pArrayListAfiche, LinkedList* pArrayListCliente, int choice);
 void* buscarPorId(LinkedList* list, int id,int choiceList);
 int afiche_compararStatus(void* this, void* arg);
-//int controller_editAfiche(LinkedList* pArrayListAfiche, LinkedList* pArrayListCliente);
+int controller_editAfiche(LinkedList* pArrayListAfiche, LinkedList* pArrayListCliente);

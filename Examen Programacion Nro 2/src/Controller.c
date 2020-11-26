@@ -259,13 +259,13 @@ int controller_editCliente(LinkedList* pArrayListCliente)
 }
 */
 
-/*int controller_editAfiche(LinkedList* pArrayListAfiche, LinkedList* pArrayListCliente)
+int controller_editAfiche(LinkedList* pArrayListAfiche, LinkedList* pArrayListCliente)
 {
 	int retorno = -1;
 	Afiche* auxAfiche;
 	Afiche afiche;
 	Cliente* auxCliente;
-	LinkedList* newList = NULL;
+	//LinkedList* newList = NULL;
 	int idAux;
 	int idCliente;
 	char nombreArchivo[LEN_AUX];
@@ -273,49 +273,29 @@ int controller_editCliente(LinkedList* pArrayListCliente)
 	char zona[LEN_AUX];
 	int index;
 	int opcionAux;
+	char numero[1] = "0";
 
-	printf("\nENTRO000\n");
+
 
 	if(pArrayListAfiche != NULL)
-	{
-
-		newList = ll_clone(pArrayListAfiche);
-		printf("\nENTRO\n");
-		if(newList != NULL){
-			printf("\nENTRO2\n");
-			if(ll_filter2(newList,afiche_compararStatus,0) == 0
-					&& ll_map(newList,afiche_imprimirUno) == 0
-					&& utn_getNumero(&afiche.id, "Ingrese el ID que desea editar\n", "\nError", 0, 999999, 3) == 0)
+		{
+			controller_ListAfiche(pArrayListAfiche);
+			if(!utn_getNumero(&idAux,"Ingrese el ID que desea editar\n","ID inválido\n",0,ll_len(pArrayListAfiche), 2))
 			{
-
-				auxAfiche = buscarPorId(newList, afiche.id, 2);
-
-				printf("\n ID %d  \n",auxAfiche->id);
-			}
-
-			//controller_ListAfiche(pArrayListAfiche);
-			//if(!utn_getNumero(&idAux,"Ingrese el ID que desea editar\n","ID inválido\n",0,ll_len(pArrayListAfiche), 2))
-		//	{
-
-				//auxAfiche = (Afiche*)ll_get(pArrayListAfiche,index);
+				index = controller_buscarPorIdArray(pArrayListAfiche, idAux);
+				auxAfiche = (Afiche*)ll_get(pArrayListAfiche,index);
 				if(auxAfiche != NULL)
 				{
-					printf("\nENTRO3\n");
 					afiche_imprimir(auxAfiche);
 
 
 					if(!utn_getNumero(&opcionAux,"Confirma modificar el afiche? [0-NO/1-SI]\n","Opción inválida\n",0,1,2) && opcionAux == 1)
 					{
-						printf("\nENTRO4\n");
-						afiche_getIdCliente(auxAfiche, &afiche.id);
-						auxCliente = buscarPorId(pArrayListCliente, afiche.idCliente, 1);
 
-						printf("\nLa venta le pertenece al cliente: \n");
+						//afiche_getIdCliente(auxAfiche, &afiche.id);
 
-						cliente_imprimir(auxCliente);
 
 						if(!(utn_getNumero(&idCliente, "Ingrese el id cliente\n", "Valor incorrecto\n", 0, 99999, 3))&&
-								!(cli_IdIsInList(pArrayListAfiche, idCliente)) &&
 								!(utn_getNombre(nombreArchivo, LEN_AUX,"Ingrese nombre archivo\n", "Valor incorrecto\n",2)) &&
 								!(utn_getNumero(&cantidadAfiches, "Ingrese cantidad de afiches\n", "Valor incorrecto\n", 0, 100, 3)) &&
 							   !(utn_getNombre(zona, LEN_AUX,"Ingrese zona\n", "Valor incorrecto\n",2)))
@@ -327,17 +307,18 @@ int controller_editCliente(LinkedList* pArrayListCliente)
 						afiche_getNombreArchivo(auxAfiche, nombreArchivo);
 						afiche_getCantidadAfiches(auxAfiche, &cantidadAfiches);
 						afiche_getZona(auxAfiche, zona);
+						afiche_setEstadoNumTxt(auxAfiche, numero);
 
 						}
 					}
-				//}
+
 			}
 		}
 
 
 	return retorno;
 }
-*/
+
 /** \brief Baja de empleado
  *
  * \param pArrayListEmployee LinkedList* Puntero a la lista a ser actualizada
