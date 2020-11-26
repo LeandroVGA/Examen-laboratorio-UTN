@@ -227,6 +227,117 @@ int controller_editCliente(LinkedList* pArrayListCliente)
 	return retorno;
 }
 
+void* buscarPorId(LinkedList* list, int id,int choiceList)
+{
+	void* result = NULL;
+	void* pElement;
+	int i;
+	int bufferId;
+	int resultAux;
+
+	printf("ACA");
+	if(list != NULL && id > 0 && (choiceList == 1 || choiceList == 2))
+	{
+		for (i = 0; i < ll_len(list); i++)
+		{
+			if(choiceList == 1)
+			{
+				pElement = (Cliente*)ll_get(list,i);
+				resultAux = cliente_getId(pElement,&bufferId);
+			} else {
+				pElement = (Afiche*)ll_get(list,i);
+				resultAux = afiche_getIdCliente(pElement,&bufferId);
+			}
+			if(resultAux != -1 && bufferId == id)
+			{
+				result = pElement;
+				break;
+			}
+		}
+	}
+	return result;
+}
+
+
+int controller_editAfiche(LinkedList* pArrayListAfiche, LinkedList* pArrayListCliente)
+{
+	int retorno = -1;
+	Afiche* auxAfiche;
+	Afiche afiche;
+	Cliente* auxCliente;
+	LinkedList* newList = NULL;
+	int idAux;
+	int idCliente;
+	char nombreArchivo[LEN_AUX];
+	int cantidadAfiches;
+	char zona[LEN_AUX];
+	int index;
+	int opcionAux;
+
+	printf("\nENTRO000\n");
+
+	if(pArrayListAfiche != NULL)
+	{
+
+		newList = ll_clone(pArrayListAfiche);
+		printf("\nENTRO\n");
+		if(newList != NULL){
+			printf("\nENTRO2\n");
+			if(ll_filter2(newList,afiche_compararStatus,0) == 0
+					&& ll_map(newList,afiche_imprimirUno) == 0
+					&& utn_getNumero(&afiche.id, "Ingrese el ID que desea editar\n", "\nError", 0, 999999, 3) == 0)
+			{
+
+				auxAfiche = buscarPorId(newList, afiche.id, 2);
+
+				printf("\n ID %d  \n",auxAfiche->id);
+			}
+
+			//controller_ListAfiche(pArrayListAfiche);
+			//if(!utn_getNumero(&idAux,"Ingrese el ID que desea editar\n","ID inválido\n",0,ll_len(pArrayListAfiche), 2))
+		//	{
+
+				//auxAfiche = (Afiche*)ll_get(pArrayListAfiche,index);
+				if(auxAfiche != NULL)
+				{
+					printf("\nENTRO3\n");
+					afiche_imprimir(auxAfiche);
+
+
+					if(!utn_getNumero(&opcionAux,"Confirma modificar el afiche? [0-NO/1-SI]\n","Opción inválida\n",0,1,2) && opcionAux == 1)
+					{
+						printf("\nENTRO4\n");
+						afiche_getIdCliente(auxAfiche, &afiche.id);
+						auxCliente = buscarPorId(pArrayListCliente, afiche.idCliente, 1);
+
+						printf("\nLa venta le pertenece al cliente: \n");
+
+						cliente_imprimir(auxCliente);
+
+						if(!(utn_getNumero(&idCliente, "Ingrese el id cliente\n", "Valor incorrecto\n", 0, 99999, 3))&&
+								!(cli_IdIsInList(pArrayListAfiche, idCliente)) &&
+								!(utn_getNombre(nombreArchivo, LEN_AUX,"Ingrese nombre archivo\n", "Valor incorrecto\n",2)) &&
+								!(utn_getNumero(&cantidadAfiches, "Ingrese cantidad de afiches\n", "Valor incorrecto\n", 0, 100, 3)) &&
+							   !(utn_getNombre(zona, LEN_AUX,"Ingrese zona\n", "Valor incorrecto\n",2)))
+						retorno = 0;
+
+
+						afiche_getId(auxAfiche, &idAux);
+						afiche_getIdCliente(auxAfiche, &idCliente);
+						afiche_getNombreArchivo(auxAfiche, nombreArchivo);
+						afiche_getCantidadAfiches(auxAfiche, &cantidadAfiches);
+						afiche_getZona(auxAfiche, zona);
+
+						}
+					}
+				//}
+			}
+		}
+
+
+	return retorno;
+}
+
 /** \brief Baja de empleado
  *
  * \param pArrayListEmployee LinkedList* Puntero a la lista a ser actualizada
@@ -656,4 +767,25 @@ int info_qtySalesById(LinkedList* listSale, int* qty,int choice,int id)
 		result = 0;
 	}
 	return result;
+}
+
+
+int afiche_compararStatus(void* this, void* arg)
+{
+	int returnAux = -1;
+	Afiche* status = (Afiche*)this;
+	int buffer;
+	int* comparadorStatus = (int*)arg;
+
+	if(this != NULL)
+	{
+		afiche_getEstadoNum(status, &buffer);
+		if(buffer == (*comparadorStatus))
+		{
+			returnAux = 0;
+		} else {
+			returnAux = 1;
+		}
+	}
+	return returnAux;
 }

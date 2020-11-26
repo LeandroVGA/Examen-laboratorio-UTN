@@ -635,6 +635,29 @@ LinkedList* ll_filter(LinkedList* this, int (*pFunc)(void*))
 
 }
 
+int ll_filter2(LinkedList * this, FunctionFilter pFunc, void* arg)
+{
+	int returnAux = -1;
+	void* pAux;
+	int i;
+
+	if (this != NULL && pFunc != NULL)
+	{
+		for (i = ll_len(this) - 1; i >= 0; i--)
+		{
+			pAux = ll_get(this, i);
+			if (pAux != NULL)
+			{
+				if (pFunc(pAux,arg) == 0)
+				{
+					returnAux = ll_remove(this, i);
+				}
+			}
+		}
+	}
+	return returnAux;
+}
+
 
 /** \brief Cuenta los elementos de la lista utilizando la funcion criterio recibida como parametro
  * \param pList LinkedList* Puntero a la lista

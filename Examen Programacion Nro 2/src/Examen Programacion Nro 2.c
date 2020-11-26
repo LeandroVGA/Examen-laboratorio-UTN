@@ -99,7 +99,7 @@ int main(void) {
 	                	controller_editCliente(listaClientes);
 	                    break;
 	                case 5:
-	                	controller_removeCliente(listaClientes);
+	                	controller_editAfiche(listaAfiches, listaClientes);
 	                    break;
 	                case 6:
 	                	controller_ListCliente(listaClientes);

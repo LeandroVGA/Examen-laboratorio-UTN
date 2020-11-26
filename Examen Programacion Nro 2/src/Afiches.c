@@ -700,17 +700,69 @@ int afiche_imprimir(Afiche* this)
 
 
 
-
 	if(this != NULL)
 	{
+	printf("\nENTRO AL IMPRIMIR\n");
 		retorno = 0;
-
 		afiche_getIdTxt(this, idAux);
+		printf("id %s\n",idAux);
 		afiche_getIdClienteTxt(this, idCliente);
 		afiche_getNombreArchivo(this, nombreArchivo);
 		afiche_getCantidadAfichesTxt(this, cantidadAfiches);
 		afiche_getZona(this, zona);
 		afiche_getEstadoNumTxt(this, estado);
+
+
+			printf("\nENTRO AL ELSE\n");
+
+		if(strncmp(estado,"0",sizeof(estado)) != 0){
+			strncpy(estado,"A Cobrar",sizeof(estado));
+		}else{
+
+			strncpy(estado,"Cobrado",sizeof(estado));
+
+		}
+
+		printf("ID: %10s - Id Cliente: %10s - Nombre Afiche: %10s - Cantidad Afiche: %10s - Zona: %10s - Estado:  %10s \n",idAux
+																	   ,idCliente
+																	   ,nombreArchivo
+																	   ,cantidadAfiches
+																	   ,zona
+																	   ,estado);
+		printf("\nENTRO3\n");
+		retorno = 0;
+	}
+	return retorno;
+}
+
+int afiche_imprimirUno(void* this)
+{
+	int retorno=-1;
+
+	Afiche* auxAfiche;
+
+	char idAux[LEN_AUX];
+	char idCliente[LEN_AUX];
+	char nombreArchivo[LEN_AUX];
+	char cantidadAfiches[LEN_AUX];
+	char zona[LEN_AUX];
+	char estado[LEN_AUX];
+
+
+
+
+	if(this != NULL)
+	{
+		retorno = 0;
+
+		auxAfiche = (Afiche*)this;
+
+		afiche_getIdTxt(auxAfiche, idAux);
+		afiche_getIdClienteTxt(auxAfiche, idCliente);
+		afiche_getNombreArchivo(auxAfiche, nombreArchivo);
+		afiche_getCantidadAfichesTxt(auxAfiche, cantidadAfiches);
+		afiche_getZona(auxAfiche, zona);
+		afiche_getEstadoNumTxt(auxAfiche, estado);
 
 
 		if(strncmp(estado,"0",sizeof(estado)) != 0){
@@ -732,4 +784,5 @@ int afiche_imprimir(Afiche* this)
 	}
 	return retorno;
 }
+
 

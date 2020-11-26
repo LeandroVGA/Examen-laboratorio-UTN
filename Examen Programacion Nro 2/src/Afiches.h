@@ -52,5 +52,6 @@ int afiche_getEstadoNumTxt(Afiche* this,char* estadoNum);
 
 
 int afiche_imprimir(Afiche* this);
+int afiche_imprimirUno(void* this);
 
 #endif // afiche_H_INCLUDED
