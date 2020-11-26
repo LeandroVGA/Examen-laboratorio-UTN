@@ -740,3 +740,103 @@ int ll_reduce(LinkedList* this, int (*pFunc)(void*, int, int))
 
 	return valor;
 }
+
+
+int ll_filter2(LinkedList * this, FunctionFilter pFunc, void* arg)
+{
+	int returnAux = -1;
+	void* pAux;
+	int i;
+
+	if (this != NULL && pFunc != NULL)
+	{
+		for (i = ll_len(this) - 1; i >= 0; i--)
+		{
+			pAux = ll_get(this, i);
+			if (pAux != NULL)
+			{
+				if (pFunc(pAux,arg) == 0)
+				{
+					returnAux = ll_remove(this, i);
+				}
+			}
+		}
+	}
+	return returnAux;
+}
+
+
+int ll_reduceInt2(LinkedList* this,int (*pFunc)(void*,void*),void* arg)
+{
+	void *pAux;
+	int i;
+	int acum = 0;
+
+	if (this != NULL && pFunc != NULL)
+	{
+		for (i = 0; i < ll_len(this); i++)
+		{
+			pAux = ll_get(this, i);
+			if (pAux != NULL)
+			{
+				acum = acum + pFunc(pAux,arg);
+			}
+		}
+	}
+	return acum;
+}
+
+
+
+
+int ll_mapAndBreak(LinkedList* this, int (*pFunc)(void*,int),int id)
+{
+    int returnAux =-1;
+    int len = ll_len(this);
+    void* pElemento;
+
+    if(this!=NULL)
+    {
+        for (int i = 0;i<len;i++)
+        {
+            pElemento=ll_get(this, i);
+            if(pFunc(pElemento,id)==1)
+            {
+                returnAux=i;
+                break;
+            }
+        }
+    }
+    return returnAux;
+}
+
+
+
+/** \brief Reduce la lista a un Entero
+ * \param pList LinkedList* Puntero a la lista
+ * \param pFunc (*pFunc) Puntero a la funcion criterio
+ * \param int * prResutlado -> puntero donde devuelve el valor final
+ * \param int idCliente -> idcliente al cual se le quiere hacer el rduce
+ * \return int Retorna  (-1) Error: si el puntero a la listas es NULL
+                               ( 0) Si ok
+ */
+
+int ll_reduceIntbyID(LinkedList* this, int (*pFunc)(void*,int), int * pResultado, int idCliente)
+{
+    int returnAux =-1;
+    int len = ll_len(this);
+    void* pElemento;
+    int resultado=0;
+    if(this!=NULL)
+    {
+
+    	for (int i = 0;i<len;i++)
+    	{
+    		pElemento=ll_get(this, i);
+    		resultado= resultado+pFunc(pElemento,idCliente);
+    		*pResultado=resultado;
+    		returnAux=0;
+    	}
+    }
+    return returnAux;
+}

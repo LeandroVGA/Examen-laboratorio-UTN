@@ -20,7 +20,7 @@
 21,Laverne,Bolton,24345472086,0
 22,Mara,Antrack,23228354965,0
 23,Frederick,Fricke,27345733506,0
-24,Tannie,Bartoszewski,27323456235,4
+24,Tannie,Bartoszewski,27323456235,0
 25,Dionisio,Butterick,24345632087,0
 26,Aluin,Charlo,23221222466,0
 

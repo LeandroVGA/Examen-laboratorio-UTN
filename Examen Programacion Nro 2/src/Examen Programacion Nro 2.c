@@ -22,15 +22,14 @@ int main(void) {
 
 	setbuf(stdout,NULL);
 	int option = 0;
-	int option2 = 0;
 	int archivoCargado = 0;
 	Cliente* auxCliente;
-	Afiche* AuxAfiche;
 	int auxIndice;
 	int contadorAux;
 	LinkedList* sublista;
 	LinkedList* sublistaII;
 	LinkedList* sublistaIII;
+	int subMenu;
 	int to;
 	int from;
 	LinkedList* listaClientes = ll_newLinkedList();
@@ -50,11 +49,9 @@ int main(void) {
 	        						  "6. Generar informe de deudas\n"
 	        						  "7. Generar estadísticas\n"
 	        			 	 	 	  ". *********************************************************\n"
-	        						  "8. Ordenar empleados por ID\n"
-	        						  "9. Agregar Afiche\n"
-	        						  "10. Salir\n",
+	        						  "18. Salir\n",
 	    							  "Opción inválida\n",
-	    							  1,18,2);
+	    							  1,8,2);
 	            switch(option)
 	            {
 	                case 1:
@@ -93,50 +90,41 @@ int main(void) {
 
 	                	sublistaIII=ll_clone(listaClientes);
 
-	                	controller_InfoACobrar(listaAfiches,listaClientes);
-	                //	controller_ListCliente(sublistaIII);
+	                	 controller_InfoCobrado(listaAfiches, sublistaIII);
 
-
-	                //	controller_ListAfiche(listaAfiches);
 	                    break;
 	                case 6:
 
+
 	                	sublistaIII=ll_clone(listaClientes);
 
-	                	 controller_InfoCobrado(listaAfiches, sublistaIII);
-
+	                	controller_InfoACobrar(listaAfiches,sublistaIII);
 
 	                    break;
 	                case 7:
-	                	utn_getNumero(&option2, "1. Cliente al que se le vendió mas afiches\n"
-												 "2. Cliente al que se le vendió menos afiches\n" //FALTA PULIR
-												 "3. Venta con mas afiches vendidos (indicar id de venta y cuit de cliente)\n"
-	                							 "4. Salir\n",
-												 "Opción inválida\n",
-												 1,18,2);
-	                		            switch(option2)
-	                		            {
-
-	                		            case 1:
-
-	                		            	controller_infoMayor(listaClientes,listaAfiches);
-	                		            	break;
-
-
-	                		            case 2:
-	                		            	controller_infoMenor(listaClientes,listaAfiches);
-
-	                		            	break;
-
-
-	                		            case 3:
-
-
-	                		            	break;
 
 
 
-	                		            }
+	                	do
+	                				{
+	                					if(utn_getNumero(&subMenu, "\n 1)Cliente con mas afiches vendidos\n "
+	                							"2)Cliente con menos afiches vendidos \n"
+	                							" 3)Venta con mas afiches vendidos\n", "error", 1, 4, 2) == 0)
+	                					{
+	                						switch (subMenu) {
+	                							case 1:
+	                								informes_encontrarClienteConMasVentas(listaAfiches,listaClientes);
+	                								break;
+	                							case 2:
+	                								informes_encontrarClienteConMenosVentas(listaAfiches,listaClientes);
+	                								break;
+	                							case 3:
+	                								informes_findClienteConMasAfiches(listaAfiches,listaClientes);
+	                								break;
+	                						}
+	                					}
+
+	                				}while (subMenu!=4);
 
 	                    break;
 	                case 8:
